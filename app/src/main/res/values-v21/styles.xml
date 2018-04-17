@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="radio_group_small">
+        <item name="android:layout_width">@dimen/dp30</item>
+        <item name="android:layout_height">@dimen/dp30</item>
+        <item name="android:layout_marginRight">@dimen/dp15</item>
+        <item name="android:buttonTint">@android:color/transparent</item>
+    </style>
+</resources>

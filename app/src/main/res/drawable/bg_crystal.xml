@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <bitmap android:src="@drawable/float_image_8"/>
+    </item>
+    <item android:top="@dimen/dp30" android:left="@dimen/dp30" android:right="0dp" android:bottom="0dp">
+        <bitmap android:src="@drawable/float_used_flag"/>
+    </item>
+</layer-list>

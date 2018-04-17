@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp10"
+        android:layout_marginTop="8.0dip"
+        app:cardCornerRadius="4.0dip"
+        app:cardElevation="1.0dip"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp20"
+                        android:text="Galaxy S9 S8 Note8 S7"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+                    <android.support.v7.widget.SwitchCompat
+                        style="@style/SwitchCompatStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/dp20"
+                        app:switchMinWidth="@dimen/dp80" />
+                </RelativeLayout>
+
+                <View
+                    style="@style/lineView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp1"
+                    android:background="@color/gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp20"
+                        android:text="iPhone 8 X plus"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+                    <android.support.v7.widget.SwitchCompat
+                        style="@style/SwitchCompatStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/dp20"
+                        app:switchMinWidth="@dimen/dp80" />
+                </RelativeLayout>
+
+                <View
+                    style="@style/lineView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp1"
+                    android:background="@color/gray" />
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/txt_motition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp20"
+                    android:text="Motitions and gestures"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <android.support.v7.widget.SwitchCompat
+                    style="@style/SwitchCompatStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dp20"
+                    app:switchMinWidth="@dimen/dp80" />
+
+                <TextView
+                    style="@style/colorBlue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp8"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:layout_toRightOf="@id/txt_motition"
+                    android:text="New" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/name_icon"
+                style="@style/colorBlue20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pink Love" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp10"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rad_pink_love"
+                    style="@style/marginIcon"
+                    android:layout_width="@dimen/dp50"
+                    android:layout_height="@dimen/dp50"
+                    android:background="@drawable/radio_pink_love"
+                    android:buttonTint="@android:color/transparent"
+                    android:checked="true" />
+
+                <RadioButton
+                    android:id="@+id/rad_cristal"
+                    style="@style/marginIcon"
+                    android:layout_width="@dimen/dp50"
+                    android:layout_height="@dimen/dp50"
+                    android:background="@drawable/radio_crystal"
+                    android:buttonTint="@android:color/transparent" />
+
+                <RadioButton
+                    android:id="@+id/rad_iphone"
+                    style="@style/marginIcon"
+                    android:layout_width="@dimen/dp50"
+
+                    android:layout_height="@dimen/dp50"
+                    android:background="@drawable/radio_iphone"
+                    android:buttonTint="@android:color/transparent" />
+
+                <RadioButton
+                    android:id="@+id/rad_hello_kitty"
+                    style="@style/marginIcon"
+                    android:layout_width="@dimen/dp50"
+
+                    android:layout_height="@dimen/dp50"
+                    android:background="@drawable/radio_hello_kitty"
+                    android:buttonTint="@android:color/transparent" />
+
+                <RadioButton
+                    android:id="@+id/rad_doreamon"
+                    style="@style/Base.Widget.AppCompat.CompoundButton.RadioButton"
+                    android:layout_width="@dimen/dp50"
+                    android:layout_height="@dimen/dp50"
+                    android:background="@drawable/radio_doraemon"
+                    android:buttonTint="@android:color/transparent" />
+
+            </RadioGroup>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp60"
+                android:layout_margin="@dimen/dp20"
+                android:layout_marginBottom="@dimen/dp30"
+                android:background="@drawable/bg_btn_blue"
+                android:text="More"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp10"
+        android:layout_marginTop="8.0dip"
+        app:cardCornerRadius="4.0dip"
+        app:cardElevation="1.0dip"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Base.TextAppearance.AppCompat.Body1"
+                android:text="Location"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    style="@style/colorBlue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp30"
+                    android:text="3D Water effect" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Right"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dp60"
+                    />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    style="@style/colorBlue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp30"
+                    android:text="Icon can move" />
+
+                <android.support.v7.widget.SwitchCompat
+                    style="@style/SwitchCompatStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dp30"
+                    app:switchMinWidth="@dimen/dp80" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    style="@style/colorBlue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp30"
+                    android:text="Click icon open Edge Screen" />
+
+                <android.support.v7.widget.SwitchCompat
+                    style="@style/SwitchCompatStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dp30"
+                    app:switchMinWidth="@dimen/dp80" />
+            </RelativeLayout>
+            <TextView
+                style="@style/colorBlue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp30"
+                android:text="You can swiping to open Edge Screen always" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Transparency"
+                style="@style/category_item"
+                />
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:progress="30"
+                android:progressTint="#06a7fa"
+                android:thumbTint="#06a7fa"
+                android:thumb="@drawable/custom_thumb"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Size"
+                style="@style/category_item"
+                />
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:progress="30"
+                android:progressTint="#06a7fa"
+                android:thumbTint="#06a7fa"
+                android:thumb="@drawable/custom_thumb"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Color"
+                style="@style/category_item"
+                />
+
+            <include layout="@layout/radio_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

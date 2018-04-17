@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp10"
+                android:layout_marginLeft="@dimen/dp10"
+                android:layout_marginRight="@dimen/dp10"
+                android:layout_marginTop="@dimen/dp10"
+                app:cardCornerRadius="@dimen/dp4"
+                app:cardElevation="@dimen/dp1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextAppearance.AppCompat.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp15"
+                        android:text="People edge" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp15"
+                        android:orientation="horizontal">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/img_bessel"
+                            android:layout_width="@dimen/dp50"
+                            android:layout_height="@dimen/dp50"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="@dimen/dp30"
+                            android:src="@drawable/people_edge_s6" />
+
+                        <TextView
+                            style="@style/colorBlue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/dp10"
+                            android:layout_toRightOf="@id/img_bessel"
+                            android:text="Bessel People Edge" />
+
+                        <android.support.v7.widget.SwitchCompat
+                            style="@style/SwitchCompatStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/dp30"
+                            app:switchMinWidth="@dimen/dp80" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp15"
+                        android:orientation="horizontal">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/img_round"
+                            android:layout_width="@dimen/dp50"
+                            android:layout_height="@dimen/dp50"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="@dimen/dp30"
+                            android:src="@drawable/people_edge_s7" />
+
+                        <TextView
+                            style="@style/colorBlue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/dp10"
+                            android:layout_toRightOf="@id/img_round"
+                            android:text="Round People Edge" />
+
+                        <android.support.v7.widget.SwitchCompat
+                            style="@style/SwitchCompatStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/dp30"
+                            app:switchMinWidth="@dimen/dp80" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp10"
+                android:layout_marginRight="@dimen/dp10"
+                android:layout_marginTop="@dimen/dp10"
+                app:cardCornerRadius="@dimen/dp4"
+                app:cardElevation="@dimen/dp1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextAppearance.AppCompat.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp15"
+                        android:text="Apps edge" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp15"
+                        android:orientation="horizontal">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/img_iphone8"
+                            android:layout_width="@dimen/dp50"
+                            android:layout_height="@dimen/dp50"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="@dimen/dp30"
+                            android:src="@drawable/iphonex" />
+
+                        <TextView
+                            style="@style/colorBlue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/dp10"
+                            android:layout_toRightOf="@id/img_iphone8"
+                            android:text="IPhone 8 X Plus Theme" />
+
+                        <android.support.v7.widget.SwitchCompat
+                            style="@style/SwitchCompatStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/dp30"
+                            app:switchMinWidth="@dimen/dp80" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp15"
+                        android:orientation="horizontal">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/img_galaxys9"
+                            android:layout_width="@dimen/dp50"
+                            android:layout_height="@dimen/dp50"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="@dimen/dp30"
+                            android:src="@drawable/ic_launcher1" />
+
+                        <TextView
+                            style="@style/colorBlue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/dp10"
+                            android:layout_toRightOf="@id/img_galaxys9"
+                            android:text="Galaxy S9 S8 Note8 Theme" />
+
+                        <android.support.v7.widget.SwitchCompat
+                            style="@style/SwitchCompatStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/dp30"
+                            app:switchMinWidth="@dimen/dp80" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp15"
+                        android:orientation="horizontal">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/img_ironman"
+                            android:layout_width="@dimen/dp50"
+                            android:layout_height="@dimen/dp50"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="@dimen/dp30"
+                            android:src="@drawable/ironman" />
+
+                        <TextView
+                            style="@style/colorBlue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/dp10"
+                            android:layout_toRightOf="@id/img_ironman"
+                            android:text="Iron Man" />
+
+                        <android.support.v7.widget.SwitchCompat
+                            style="@style/SwitchCompatStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/dp30"
+                            app:switchMinWidth="@dimen/dp80" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp15"
+                        android:orientation="horizontal">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/img_baymax"
+                            android:layout_width="@dimen/dp50"
+                            android:layout_height="@dimen/dp50"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="@dimen/dp30"
+                            android:src="@drawable/baymax" />
+
+                        <TextView
+                            style="@style/colorBlue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/dp10"
+                            android:layout_toRightOf="@id/img_baymax"
+                            android:text="Iron Man" />
+
+                        <android.support.v7.widget.SwitchCompat
+                            style="@style/SwitchCompatStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/dp30"
+                            app:switchMinWidth="@dimen/dp80" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp15"
+                        android:orientation="horizontal">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/img_doraemon"
+                            android:layout_width="@dimen/dp50"
+                            android:layout_height="@dimen/dp50"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="@dimen/dp30"
+                            android:src="@drawable/duola" />
+
+                        <TextView
+                            style="@style/colorBlue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/dp10"
+                            android:layout_toRightOf="@id/img_doraemon"
+                            android:text="Iron Man" />
+
+                        <android.support.v7.widget.SwitchCompat
+                            style="@style/SwitchCompatStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/dp30"
+                            app:switchMinWidth="@dimen/dp80" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp15"
+                        android:orientation="horizontal">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/img_your_phone"
+                            android:layout_width="@dimen/dp50"
+                            android:layout_height="@dimen/dp50"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="@dimen/dp30"
+                            android:src="@drawable/ic_launcher4" />
+
+                        <TextView
+                            style="@style/colorBlue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/dp10"
+                            android:layout_toRightOf="@id/img_your_phone"
+                            android:text="Iron Man" />
+
+                        <android.support.v7.widget.SwitchCompat
+                            style="@style/SwitchCompatStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/dp30"
+                            app:switchMinWidth="@dimen/dp80" />
+                    </RelativeLayout>
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp60"
+                        android:layout_marginBottom="@dimen/dp5"
+                        android:layout_marginLeft="@dimen/dp30"
+                        android:layout_marginRight="@dimen/dp30"
+                        android:layout_marginTop="@dimen/dp5"
+                        android:background="@drawable/bg_btn_blue"
+                        android:text="Themes Online"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+
+                        />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp10"
+                android:layout_marginLeft="@dimen/dp10"
+                android:layout_marginRight="@dimen/dp10"
+                android:layout_marginTop="@dimen/dp10"
+                app:cardCornerRadius="@dimen/dp4"
+                app:cardElevation="@dimen/dp1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp10"
+                android:layout_marginLeft="@dimen/dp10"
+                android:layout_marginRight="@dimen/dp10"
+                app:cardCornerRadius="@dimen/dp4"
+                app:cardElevation="@dimen/dp1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextAppearance.AppCompat.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp15"
+                        android:text="Wallpaper" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp15"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/img_wallpaper"
+                            android:layout_width="@dimen/dp25"
+                            android:layout_height="@dimen/dp25"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="@dimen/dp30"
+                            android:src="@drawable/five_star" />
+
+                        <TextView
+                            style="@style/colorBlue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/dp10"
+                            android:layout_toRightOf="@id/img_wallpaper"
+                            android:text="Wallpaper" />
+
+                        <android.support.v7.widget.SwitchCompat
+                            style="@style/SwitchCompatStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/dp30"
+                            app:switchMinWidth="@dimen/dp80" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp15"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/img_wallpaper_blur"
+                            android:layout_width="@dimen/dp25"
+                            android:layout_height="@dimen/dp25"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="@dimen/dp30"
+                            android:src="@drawable/five_star" />
+
+                        <TextView
+                            style="@style/colorBlue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/dp10"
+                            android:layout_toRightOf="@id/img_wallpaper_blur"
+                            android:text="Wallpaper blur" />
+
+                        <android.support.v7.widget.SwitchCompat
+                            style="@style/SwitchCompatStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/dp30"
+                            app:switchMinWidth="@dimen/dp80" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp15"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/img_iphone8_blur"
+                            android:layout_width="@dimen/dp25"
+                            android:layout_height="@dimen/dp25"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="@dimen/dp30"
+                            android:src="@drawable/iphone_x_background" />
+
+                        <TextView
+                            style="@style/colorBlue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/dp10"
+                            android:layout_toRightOf="@id/img_iphone8_blur"
+                            android:text="iPhone 8 X Plus Walpaper Blue" />
+
+                        <android.support.v7.widget.SwitchCompat
+                            style="@style/SwitchCompatStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/dp30"
+                            app:switchMinWidth="@dimen/dp80" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp15"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/img_transparen"
+                            android:layout_width="@dimen/dp25"
+                            android:layout_height="@dimen/dp25"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="@dimen/dp30"
+                            android:src="@drawable/five_star" />
+
+                        <TextView
+                            style="@style/colorBlue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/dp10"
+                            android:layout_toRightOf="@id/img_transparen"
+                            android:text="Transparency" />
+
+                        <android.support.v7.widget.SwitchCompat
+                            style="@style/SwitchCompatStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/dp30"
+                            app:switchMinWidth="@dimen/dp80" />
+                    </RelativeLayout>
+
+                    <Button
+                        android:layout_marginTop="@dimen/dp10"
+                        style="@style/buton_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp60"
+                        android:background="@drawable/bg_btn_green"
+                        android:text="S9 S8 S7 Edge Wallpaper"
+
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <Button
+                            style="@style/buton_bg_no_margin"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/dp60"
+                            android:layout_marginLeft="@dimen/dp30"
+                            android:layout_marginRight="@dimen/dp5"
+                            android:layout_weight="2"
+                            android:background="@drawable/bg_btn_green"
+                            android:text="Abstract" />
+
+                        <Button
+                            style="@style/buton_bg_no_margin"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/dp60"
+                            android:layout_marginRight="@dimen/dp30"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_btn_blue2"
+                            android:text="Galaxy" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <Button
+                            style="@style/buton_bg_no_margin"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/dp60"
+                            android:layout_marginLeft="@dimen/dp30"
+                            android:layout_marginRight="@dimen/dp5"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_btn_green"
+                            android:text="Sea" />
+
+                        <Button
+                            style="@style/buton_bg_no_margin"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/dp60"
+                            android:layout_marginRight="@dimen/dp30"
+                            android:layout_weight="2"
+                            android:background="@drawable/bg_btn_orange"
+                            android:text="Nature" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <Button
+                            style="@style/buton_bg_no_margin"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/dp60"
+                            android:layout_marginLeft="@dimen/dp30"
+                            android:layout_marginRight="@dimen/dp5"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_btn_green"
+                            android:text="Animal" />
+
+                        <Button
+                            style="@style/buton_bg_no_margin"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/dp60"
+                            android:layout_marginRight="@dimen/dp5"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_btn_red"
+                            android:text="Building" />
+
+                        <Button
+
+                            style="@style/buton_bg_no_margin"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/dp60"
+                            android:layout_marginRight="@dimen/dp30"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_btn_yellow"
+                            android:text="Iphone7" />
+
+                    </LinearLayout>
+
+                    <Button
+
+                        style="@style/buton_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp60"
+                        android:layout_marginBottom="@dimen/dp5"
+                        android:layout_marginTop="@dimen/dp5"
+                        android:background="@drawable/bg_btn_blue"
+                        android:text="Wallpaper Online"
+
+                        />
+
+                    <Button
+                        style="@style/buton_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp60"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:background="@drawable/bg_btn_green"
+                        android:text="Native" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp10"
+                android:layout_marginLeft="@dimen/dp10"
+                android:layout_marginRight="@dimen/dp10"
+                android:layout_marginTop="@dimen/dp10"
+                app:cardCornerRadius="@dimen/dp4"
+                app:cardElevation="@dimen/dp1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_marginLeft="@dimen/dp15"
+                        style="@style/Base.TextAppearance.AppCompat.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="New" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            style="@style/colorBlue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/dp30"
+                            android:text="3D Water effect" />
+
+                        <android.support.v7.widget.SwitchCompat
+                            style="@style/SwitchCompatStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/dp30"
+                            app:switchMinWidth="@dimen/dp80" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:layout_marginRight="@dimen/dp30"
+                        android:layout_marginLeft="@dimen/dp30"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Maybe phone not support, if edge screen turn blue, please turn off this function ." />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bd_edge_screen_item"
+    android:layout_marginLeft="@dimen/dp5"
+    android:layout_marginRight="@dimen/dp5"
+    >
+<CheckBox
+    android:layout_marginTop="@dimen/dp10"
+    android:layout_marginBottom="@dimen/dp20"
+    android:layout_width="@dimen/dp50"
+    android:layout_height="@dimen/dp50"
+    android:checked="true"
+    android:scaleX="3"
+    android:scaleY="3"
+    android:layout_marginLeft="@dimen/dp55"
+    android:button="@drawable/bg_checkbox"
+    android:layout_gravity="center_horizontal"
+    />
+    <ImageView
+        android:id="@+id/img_edge_screen"
+        android:layout_width="@dimen/dp120"
+        android:layout_height="@dimen/dp450"
+        />
+<ImageView
+    android:layout_width="@dimen/dp50"
+    android:layout_height="@dimen/dp50"
+    android:src="@drawable/modify_panel"
+    android:layout_marginTop="@dimen/dp20"
+    android:layout_marginBottom="@dimen/dp10"
+    android:layout_gravity="center_horizontal"
+    />
+</LinearLayout>

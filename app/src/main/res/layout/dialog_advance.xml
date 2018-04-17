@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="12.0dip"
+    android:background="@drawable/all_apps_search_bar_background">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20.0dip"
+            android:layout_marginLeft="24.0dip"
+            android:layout_marginRight="24.0dip"
+            android:layout_marginTop="20.0dip"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="25.0dip"
+                android:layout_height="25.0dip"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_launcher1" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15.0dip"
+                android:text="@string/bi"
+                android:textColor="#ff000000"
+                android:textSize="18.0dip" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@id/mw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20.0dip"
+            android:layout_marginLeft="34.0dip"
+            android:layout_marginRight="24.0dip"
+            android:lineSpacingExtra="5.0dip"
+            android:text="Dear friends,this free app can only use 30 Minutes,pelase search and buy People Edge in google play,thank you!"
+            android:textColor="#ff616161"
+            android:textSize="16.0dip" />
+
+        <TextView
+            android:id="@id/mx"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="right"
+            android:layout_marginRight="8.0dip"
+            android:gravity="center"
+            android:padding="10.0dip"
+            android:text="@string/bi"
+            android:textColor="@color/green2"
+            android:textSize="18.0dip"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@id/my"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginBottom="16.0dip"
+            android:layout_marginRight="16.0dip"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@id/mz"
+                android:layout_width="20.0dip"
+                android:layout_height="20.0dip"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/icon_appsuggest_2" />
+
+            <TextView
+                android:id="@id/n0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10.0dip"
+                android:text="@string/bi"
+                android:textColor="@color/bluedark"
+                android:textSize="18.0dip" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

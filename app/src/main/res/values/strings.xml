@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">EdgeGalaxy</string>
+    <string name="switch_yes">On</string>
+    <string name="switch_no">Off</string>
+    <string name="bi">Advanced</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

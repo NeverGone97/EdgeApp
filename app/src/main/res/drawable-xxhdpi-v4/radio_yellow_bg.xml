@@ -1,0 +1,10 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:drawable="@drawable/checked_yellow"
+        android:state_checked="true"
+        />
+    <item
+        android:drawable="@drawable/circle_cornor_yellow"
+        android:state_checkable="false"
+        />
+</selector>
