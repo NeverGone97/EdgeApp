@@ -6,7 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
     </style>
     <style name="SwitchCompatStyle">
         <item name="colorControlActivated">@color/pure_blue</item>
@@ -58,5 +59,10 @@
         <item name="android:layout_width">@dimen/dp30</item>
         <item name="android:layout_height">@dimen/dp30</item>
         <item name="android:layout_marginRight">@dimen/dp15</item>
+    </style>
+    <style name="customToolbar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 </resources>

@@ -4,12 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import com.nextsol.taipv.edgegalaxy.R;
 import com.nextsol.taipv.edgegalaxy.view.adapter.ViewpagerAdapter;
 import com.nextsol.taipv.edgegalaxy.view.fragment.Fragments;
+import com.nextsol.taipv.edgegalaxy.view.fragment.LocalMusic;
 import com.nextsol.taipv.edgegalaxy.view.fragment.OnlineMusic;
 
 import java.util.ArrayList;
@@ -23,8 +23,9 @@ public class Music extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music);
-        ActionBar actionBar=getSupportActionBar();
-        actionBar.hide();
+
+//        ActionBar actionBar=getSupportActionBar();
+//        actionBar.hide();
         initView();
         initEvents();
 
@@ -32,7 +33,7 @@ public class Music extends AppCompatActivity {
 
     private void initEvents() {
         List<Fragments> list=new ArrayList<>();
-        list.add(new Fragments(OnlineMusic.newInstance(),"Local Music"));
+        list.add(new Fragments(LocalMusic.newInstance(),"Local Music"));
         list.add(new Fragments(OnlineMusic.newInstance(),"Online Music"));
         ViewpagerAdapter adapter=new ViewpagerAdapter(getSupportFragmentManager(),list);
         viewPager.setAdapter(adapter);

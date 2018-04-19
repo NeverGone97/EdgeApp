@@ -29,14 +29,16 @@
         <activity android:name=".view.activity.PeopleEdge" />
         <activity android:name=".view.activity.ShowListApp" />
         <activity android:name=".view.activity.Music" />
-
+        <activity android:name=".view.activity.NavigationHome" />
 
         <service
             android:name=".view.activity.FloatingViewService"
             android:enabled="true"
             android:exported="false" />
         <service android:name=".view.service.MusicService" />
-        <activity android:name=".view.activity.AppsEdge"></activity>
+
+        <activity android:name=".view.activity.AppsEdge" />
+        <activity android:name=".view.activity.BigerImage"></activity>
     </application>
 
 </manifest>

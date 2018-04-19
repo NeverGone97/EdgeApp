@@ -119,6 +119,7 @@ public class MusicService extends Service implements
     //set the song
     public void setSong(int songIndex){
         songPosn=songIndex;
+
     }
 
     @Override
@@ -166,9 +167,11 @@ public class MusicService extends Service implements
     }
 
     public int getDur(){
+        return player.getCurrentPosition();
+    }
+    public int getTotal(){
         return player.getDuration();
     }
-
     public boolean isPng(){
         return player.isPlaying();
     }
@@ -179,8 +182,8 @@ public class MusicService extends Service implements
 
     public void seek(int posn){
         player.seekTo(posn);
+        Log.d("xxx", "seek: "+posn);
     }
-
     public void go(){
         player.start();
     }

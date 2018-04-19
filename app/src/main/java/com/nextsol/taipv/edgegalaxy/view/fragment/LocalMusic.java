@@ -12,6 +12,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,8 +24,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.MediaController;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.nextsol.taipv.edgegalaxy.R;
 import com.nextsol.taipv.edgegalaxy.callback.IpassView;
@@ -33,29 +36,35 @@ import com.nextsol.taipv.edgegalaxy.presenter.MusicController;
 import com.nextsol.taipv.edgegalaxy.view.adapter.LocalMusicAdapter;
 import com.nextsol.taipv.edgegalaxy.view.service.MusicService;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class LocalMusic extends Fragment implements MediaController.MediaPlayerControl{
-    private int READ_STORAGE_PERMISSION_REQUEST_CODE=1;
+public class LocalMusic extends Fragment implements View.OnClickListener {
+    private int READ_STORAGE_PERMISSION_REQUEST_CODE = 1;
     private LinearLayout linear;
     //song list variables
     private List<Song> list;
     private RecyclerView rcv_local_music;
-
+    private ImageView imgPlay,imgNext;
+    private TextView tvSong,tvArtise;
     //service
     private MusicService musicSrv;
     private Intent playIntent;
+    int position=-1;
+    private SeekBar seekBar;
     //binding
-    private boolean musicBound=false;
+    private boolean musicBound = false;
 
     //controller
     private MusicController controller;
 
     //activity and playback pause flags
-    private boolean paused=false, playbackPaused=false;
+    private boolean paused = false, playbackPaused = false;
+    private ImageView imgPause;
+
     public static LocalMusic newInstance() {
         Bundle args = new Bundle();
 
@@ -74,6 +83,7 @@ public class LocalMusic extends Fragment implements MediaController.MediaPlayerC
         }
         checkPermissionForReadExtertalStorage();
     }
+
     public boolean checkPermissionForReadExtertalStorage() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             int result = getContext().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
@@ -81,6 +91,7 @@ public class LocalMusic extends Fragment implements MediaController.MediaPlayerC
         }
         return false;
     }
+
     public void requestPermissionForReadExtertalStorage() throws Exception {
         try {
             ActivityCompat.requestPermissions((Activity) getContext(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
@@ -90,12 +101,13 @@ public class LocalMusic extends Fragment implements MediaController.MediaPlayerC
             throw e;
         }
     }
+
     //connect to the service
-    private ServiceConnection musicConnection = new ServiceConnection(){
+    private ServiceConnection musicConnection = new ServiceConnection() {
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            MusicService.MusicBinder binder = (MusicService.MusicBinder)service;
+            MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
             //get service
             musicSrv = binder.getService();
             //pass list
@@ -112,16 +124,29 @@ public class LocalMusic extends Fragment implements MediaController.MediaPlayerC
     @Override
     public void onStart() {
         super.onStart();
-        if(playIntent==null){
+        if (playIntent == null) {
             playIntent = new Intent(getContext(), MusicService.class);
             getContext().bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
             getContext().startService(playIntent);
         }
     }
-    public void songPicked(){
-        musicSrv.setSong(Integer.parseInt(getTag().toString()));
+
+    public void songPicked(int pos) {
+        position=pos;
+        musicSrv.setSong(pos);
         musicSrv.playSong();
+
+//        if (playbackPaused) {
+//            setController();
+//            playbackPaused = false;
+//        }
+//        controller.show(0);
+//        setController();
+//        playbackPaused=true;
+//        musicBound=true;
+//        isPlaying();
     }
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_local_music, container, false);
     }
@@ -131,13 +156,14 @@ public class LocalMusic extends Fragment implements MediaController.MediaPlayerC
         super.onViewCreated(view, savedInstanceState);
 
         initView(view);
+        initEvents();
         getSongList();
-        Collections.sort(list, new Comparator<Song>(){
-            public int compare(Song a, Song b){
+        Collections.sort(list, new Comparator<Song>() {
+            public int compare(Song a, Song b) {
                 return a.getTitle().compareTo(b.getTitle());
             }
         });
-        LocalMusicAdapter adapter=new LocalMusicAdapter(list,getContext());
+        LocalMusicAdapter adapter = new LocalMusicAdapter(list, getContext());
 //        rcv_local_music.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -149,31 +175,64 @@ public class LocalMusic extends Fragment implements MediaController.MediaPlayerC
         adapter.setPassView(new IpassView() {
             @Override
             public void onPassView(int pos, View view) {
-                Log.d("xxx", "onPassView: "+pos);
-                musicSrv.setSong(Integer.parseInt(view.getTag().toString()));
-                musicSrv.playSong();
+                Log.d("xxx", "onPassView: " + pos);
+                songPicked(pos);
+                tvSong.setText(list.get(pos).getTitle());
+                tvArtise.setText(list.get(pos).getArtist());
+                imgPlay.setVisibility(View.GONE);
+                imgPause.setVisibility(View.VISIBLE);
             }
         });
 
-        setController();
+    }
+
+    private void initEvents() {
+        imgPlay.setOnClickListener(this);
+        imgNext.setOnClickListener(this);
+        imgPause.setOnClickListener(this);
+        seekBar.setMax(100000);
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//                musicSrv.seek(progress*1000);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                musicSrv.seek(seekBar.getProgress());
+                Log.d("xxx", "onStopTrackingTouch: "+seekBar.getProgress()+"Max time:"+musicSrv.getTotal());
+            }
+        });
     }
 
     private void initView(View view) {
-        list=new ArrayList<>();
-        rcv_local_music=view.findViewById(R.id.rcv_music_local);
-        LinearLayoutManager manager=new LinearLayoutManager(getContext());
+        list = new ArrayList<>();
+        rcv_local_music = view.findViewById(R.id.rcv_music_local);
+        imgPlay = view.findViewById(R.id.img_play_music);
+        imgPause=view.findViewById(R.id.img_pause_music);
+        imgNext=view.findViewById(R.id.img_next);
+        tvSong=view.findViewById(R.id.tv_name_song);
+        tvArtise=view.findViewById(R.id.tv_name_author);
+        seekBar=view.findViewById(R.id.seek_duration);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
         rcv_local_music.setLayoutManager(manager);
         rcv_local_music.setHasFixedSize(true);
     }
 
     //start and bind the service when the activity starts
-    public void getSongList(){
+    public void getSongList() {
         //query external audio
         ContentResolver musicResolver = getContext().getContentResolver();
         Uri musicUri = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
         Cursor musicCursor = musicResolver.query(musicUri, null, null, null, null);
         //iterate over results if valid
-        if(musicCursor!=null && musicCursor.moveToFirst()){
+        if (musicCursor != null && musicCursor.moveToFirst()) {
             //get columns
             int titleColumn = musicCursor.getColumnIndex
                     (android.provider.MediaStore.Audio.Media.TITLE);
@@ -192,133 +251,61 @@ public class LocalMusic extends Fragment implements MediaController.MediaPlayerC
         }
     }
 
-    @Override
-    public boolean canPause() {
-        return true;
-    }
+
+
+
 
     @Override
-    public boolean canSeekBackward() {
-        return true;
-    }
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.img_play_music:
+                imgPause.setVisibility(View.VISIBLE);
+                imgPlay.setVisibility(View.GONE);
+                if(position!=-1){
+                    songPicked(position);
+                    updatePost(position);
+                }else {
+                    songPicked(0);
+                    updatePost(0);
+                }
 
-    @Override
-    public boolean canSeekForward() {
-        return true;
-    }
-
-    @Override
-    public int getAudioSessionId() {
-        return 0;
-    }
-
-    @Override
-    public int getBufferPercentage() {
-        return 0;
-    }
-
-    @Override
-    public int getCurrentPosition() {
-        if(musicSrv!=null && musicBound && musicSrv.isPng())
-            return musicSrv.getPosn();
-        else return 0;
-    }
-
-    @Override
-    public int getDuration() {
-        if(musicSrv!=null && musicBound && musicSrv.isPng())
-            return musicSrv.getDur();
-        else return 0;
-    }
-
-    @Override
-    public boolean isPlaying() {
-        if(musicSrv!=null && musicBound)
-            return musicSrv.isPng();
-        return false;
-    }
-
-    @Override
-    public void pause() {
-        playbackPaused=true;
-        musicSrv.pausePlayer();
-    }
-
-    @Override
-    public void seekTo(int pos) {
-        musicSrv.seek(pos);
-    }
-
-    @Override
-    public void start() {
-        musicSrv.go();
-    }
-
-    //set the controller up
-    private void setController(){
-        controller = new MusicController(getContext());
-        //set previous and next button listeners
-        controller.setPrevNextListeners(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playNext();
-            }
-        }, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playPrev();
-            }
-        });
-        //set and show
-        controller.setMediaPlayer(this);
-        controller.setAnchorView(getView().findViewById(R.id.rcv_music_local));
-        controller.setEnabled(true);
-    }
-
-    private void playNext(){
-        musicSrv.playNext();
-        if(playbackPaused){
-            setController();
-            playbackPaused=false;
-        }
-        controller.show(0);
-    }
-
-    private void playPrev(){
-        musicSrv.playPrev();
-        if(playbackPaused){
-            setController();
-            playbackPaused=false;
-        }
-        controller.show(0);
-    }
-
-    @Override
-    public void onPause(){
-        super.onPause();
-        paused=true;
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        if(paused){
-            setController();
-            paused=false;
+//                updatePost(3);
+                UpdateTimeSong();
+                Log.d("xxx", "onClick: "+musicSrv.getDur());
+//                setTimeTotal();
+                break;
+            case R.id.img_pause_music:
+                imgPause.setVisibility(View.GONE);
+                imgPlay.setVisibility(View.VISIBLE);
+                musicSrv.pausePlayer();
+                break;
+            case R.id.img_next:
+                position++;
+                musicSrv.playNext();
+                updatePost(position);
+                break;
         }
     }
 
-    @Override
-    public void onStop() {
-        controller.hide();
-        super.onStop();
-    }
+    public void UpdateTimeSong(){
+            final Handler mHandler = new Handler();
+            mHandler.postDelayed(new Runnable() {
+                public static final String TAG = "xxx";
 
-    @Override
-    public void onDestroy() {
-        getContext().stopService(playIntent);
-        musicSrv=null;
-        super.onDestroy();
+                @Override
+                public void run() {
+                    SimpleDateFormat formatTime=new SimpleDateFormat("mm:ss");
+                    Log.d(TAG, "run: "+formatTime.format(musicSrv.getDur()));
+                    //update progress
+                    seekBar.setProgress(musicSrv.getDur());
+                    Log.d(TAG, "run: "+musicSrv.getDur());
+                    mHandler.postDelayed(this,500);
+                }
+            },100);
+    }
+    public void updatePost(int position){
+        tvSong.setText(list.get(position).getTitle());
+        tvArtise.setText(list.get(position).getArtist());
     }
 
 }

@@ -72,7 +72,18 @@ public class AppsEdgeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //                    }
             }
         });
+        itemHolder.imgDeleteApp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
+                        R.drawable.plus_btn_selected);
+                list.set(position,new AppsEdge("",icon));
+                itemHolder.imgAddApp.setImageResource(R.drawable.plus_btn_selected);
+                itemHolder.imgDeleteApp.setVisibility(View.GONE);
+                itemHolder.tvNameApp.setText("");
 
+            }
+        });
     }
 
     private void intentResult(int pos) {

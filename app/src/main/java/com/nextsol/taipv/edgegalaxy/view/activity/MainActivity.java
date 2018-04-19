@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         itemPeopleEdge.setOnClickListener(this);
         itemAppEdge.setOnClickListener(this);
         itemMusic.setOnClickListener(this);
+        itemRingtone.setOnClickListener(this);
     }
 
     private void initView() {
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         itemPeopleEdge = findViewById(R.id.item_people_edge);
         itemAppEdge = findViewById(R.id.item_edge_app);
         itemMusic = findViewById(R.id.item_music);
+        itemRingtone=findViewById(R.id.item_ringtone);
     }
 
     /**
@@ -149,6 +151,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.item_music:
                 intentActivity(Music.class);
+                break;
+            case R.id.item_ringtone:
+                intentActivity(NavigationHome.class);
                 break;
         }
     }
