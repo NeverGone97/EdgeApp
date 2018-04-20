@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         android:layout_above="@id/relay_bar_play"
         >
-
     </android.support.v7.widget.RecyclerView>
     <RelativeLayout
         android:background="#ffffff"

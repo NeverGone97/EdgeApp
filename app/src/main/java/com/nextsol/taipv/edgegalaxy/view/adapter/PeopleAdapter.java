@@ -24,9 +24,11 @@ import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
+import com.google.gson.Gson;
 import com.nextsol.taipv.edgegalaxy.R;
 import com.nextsol.taipv.edgegalaxy.callback.IPassPos;
 import com.nextsol.taipv.edgegalaxy.model.PeopleContact;
+import com.nextsol.taipv.edgegalaxy.utils.SharePre;
 
 import java.util.List;
 
@@ -36,7 +38,8 @@ public class PeopleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private List<PeopleContact> list;
     private int currentBackgroundColor = 0xffffffff;
     public static final int PICK_CONTACT = 2;
-
+    SharePre sharePre;
+    Gson gson;
     public PeopleAdapter(Context context, List<PeopleContact> list,IPassPos iPassPos) {
         this.context = context;
         this.list = list;
@@ -123,6 +126,12 @@ public class PeopleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             itemHolder.imgDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    list.set(position,new PeopleContact(contact.getColor(),"","Add contacts"));
+                    sharePre=new SharePre(context);
+                    gson=new Gson();
+                    String type=gson.toJson(list);
+                    sharePre.saveListContact(type);
                     itemHolder.tvCharFirstName.setVisibility(View.VISIBLE);
                     itemHolder.tvCharFirstName.setText("+");
                     itemHolder.imgColorName.setImageResource(contact.getColor());
@@ -135,8 +144,11 @@ public class PeopleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             itemHolder.tvContactPeople.setText(contact.getName());
             itemHolder.imgDelete.setVisibility(View.VISIBLE);
             itemHolder.tvCharFirstName.setVisibility(View.VISIBLE);
-            if (contact.getBitmap()==null){
+            if (!contact.getName().equals("Add contacts")){
                 itemHolder.tvCharFirstName.setText(contact.getName().substring(0,1));
+            }else {
+                itemHolder.tvCharFirstName.setText("+");
+                itemHolder.imgDelete.setVisibility(View.GONE);
             }
         }
 

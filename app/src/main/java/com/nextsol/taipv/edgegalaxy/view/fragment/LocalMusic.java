@@ -46,6 +46,7 @@ public class LocalMusic extends Fragment implements View.OnClickListener {
     private int READ_STORAGE_PERMISSION_REQUEST_CODE = 1;
     private LinearLayout linear;
     //song list variables
+
     private List<Song> list;
     private RecyclerView rcv_local_music;
     private ImageView imgPlay,imgNext;
