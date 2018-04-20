@@ -1,18 +1,39 @@
 package com.nextsol.taipv.edgegalaxy.model;
 
+import android.graphics.Bitmap;
+
 public class PeopleContact {
 private int color;
-private long phone;
+private String phone;
 private String name;
-
+private Bitmap bitmap;
     public PeopleContact(int color) {
         this.color = color;
     }
 
-    public PeopleContact(int color, long phone, String name) {
+    public PeopleContact(int color, String phone, String name) {
         this.color = color;
         this.phone = phone;
         this.name = name;
+    }
+
+    public PeopleContact(String phone, String name, Bitmap bitmap) {
+        this.phone = phone;
+        this.name = name;
+        this.bitmap = bitmap;
+    }
+
+    public PeopleContact(String phone, String name) {
+        this.phone = phone;
+        this.name = name;
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
 
     public int getColor() {
@@ -23,11 +44,11 @@ private String name;
         this.color = color;
     }
 
-    public long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

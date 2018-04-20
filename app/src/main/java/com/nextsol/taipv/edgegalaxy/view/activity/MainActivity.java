@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout linearLayout, linearPermis, itemShare, item_power_saving,
             item_screen_edge, itemThemPaper, itemEdgeScreen, itemAdvance, itemIcon,
             itemPeopleEdge, itemAppEdge, itemMusic, itemRingtone;
-    private TextView tvPermission;
+    private TextView tvPermission,numberContact;
     private static final int CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084;
 
     @Override
@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         itemAppEdge = findViewById(R.id.item_edge_app);
         itemMusic = findViewById(R.id.item_music);
         itemRingtone=findViewById(R.id.item_ringtone);
+        numberContact=findViewById(R.id.numberContact);
     }
 
     /**

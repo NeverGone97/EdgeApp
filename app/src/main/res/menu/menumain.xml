@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_wallpaper"
+            android:icon="@drawable/account_item_wallpaper"
+            android:iconTint="#FFC81B"
+            android:title="Wallpaper" />
+        <item
+            android:id="@+id/nav_theme"
+            android:icon="@drawable/launcher_menu_theme_wallpaper"
+            android:iconTint="#FFC81B"
+            android:title="Themes" />
+        <item
+            android:id="@+id/nav_ringtone"
+            android:icon="@drawable/ic_ringtone"
+            android:iconTint="#fc8301"
+            android:title="Ringtone" />
+        <item
+            android:id="@+id/nav_notifi"
+            android:icon="@drawable/ic_notification_sound"
+            android:iconTint="#FFC81B"
+            android:title="Notifications" />
+        <item
+            android:id="@+id/nav_icon"
+            android:icon="@drawable/icon_appsuggest_2"
+            android:title="Icon" />
+    </group>
+</menu>

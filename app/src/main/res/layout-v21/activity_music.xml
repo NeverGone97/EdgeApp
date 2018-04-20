@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <android.support.design.widget.TabLayout
+    android:layout_below="@id/toolbar"
+    android:id="@+id/tab_music"
+    android:layout_width="match_parent"
+    android:background="@color/colorPrimaryDark"
+    app:tabIndicatorColor="@android:color/transparent"
+    app:tabTextColor="@color/grey"
+    app:tabSelectedTextColor="@color/white"
+    android:layout_height="?android:attr/actionBarSize">
+
+</android.support.design.widget.TabLayout>
+    <!--<android.support.v4.view.ViewPager-->
+        <!--android:id="@+id/pager_music"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+    <!--</android.support.v4.view.ViewPager>-->
+<android.support.v4.view.ViewPager
+    android:id="@+id/viewpager_music"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/tab_music"
+
+    >
+
+</android.support.v4.view.ViewPager>
+
+</RelativeLayout>

@@ -25,12 +25,11 @@ import com.nextsol.taipv.edgegalaxy.view.activity.ShowListApp;
 import java.util.List;
 
 public class AppsEdgeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
+    IPassPos iPassPos;
     ItemClickListener itemClickListener;
     Context context;
     String name;
     List<AppsEdge> list;
-    IPassPos iPassPos;
     private TextView txt;
 
     public AppsEdgeAdapter(Context context, List<AppsEdge> list) {
@@ -49,6 +48,7 @@ public class AppsEdgeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         final ItemHolder itemHolder = (ItemHolder) holder;
         final AppsEdge appsEdge = list.get(position);
+        iPassPos.iPassPoss(position);
         itemHolder.imgAddApp.setImageBitmap(appsEdge.getIcon());
         itemHolder.imgDeleteApp.setImageResource(appsEdge.getDelete());
 //            if (itemHolder.tvNameApp.getText().toString()!=""||itemHolder.tvNameApp.getText().toString()!=null){
@@ -101,7 +101,9 @@ public class AppsEdgeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void setItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
-
+    public void onClick(IPassPos iPassPos){
+        this.iPassPos=iPassPos;
+    }
     private class ItemHolder extends RecyclerView.ViewHolder {
         public ImageView imgAddApp, imgDeleteApp;
         public TextView tvNameApp;

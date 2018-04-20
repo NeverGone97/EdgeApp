@@ -53,6 +53,7 @@ public class AppsEdge extends AppCompatActivity {
             final int c=extras.getInt("poss",-1);
             final Bitmap bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
             Log.d("MyAdapter", "onActivityResult" + bmp.toString() + a);
+
 //
 //            list.set(9,new com.nextsol.taipv.edgegalaxy.model.AppsEdge("Hehe",bmp));
             adapter.upDateIem(c,new com.nextsol.taipv.edgegalaxy.model.AppsEdge(a,bmp,R.drawable.weather_delete_btn));
