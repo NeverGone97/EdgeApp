@@ -26,6 +26,8 @@
     colorBlue20
     <color name="pure_blue">#5eedff</color>
     <color name="bluelight">#12abc8</color>
+    <color name="graydetail">#fefefe</color>
+
     <style name="category_item">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">14sp</item>
@@ -64,5 +66,13 @@
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="textLeftDetail">
+        <item name="android:textColor">@color/graydetail</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="textRightDetail">
+        <item name="android:textColor">@color/graydetail</item>
+        <item name="android:textSize">16sp</item>
     </style>
 </resources>

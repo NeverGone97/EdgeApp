@@ -48,7 +48,7 @@ public class AppsEdgeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         final ItemHolder itemHolder = (ItemHolder) holder;
         final AppsEdge appsEdge = list.get(position);
-        iPassPos.iPassPoss(position);
+//        iPassPos.iPassPoss(position);
         itemHolder.imgAddApp.setImageBitmap(appsEdge.getIcon());
         itemHolder.imgDeleteApp.setImageResource(appsEdge.getDelete());
 //            if (itemHolder.tvNameApp.getText().toString()!=""||itemHolder.tvNameApp.getText().toString()!=null){

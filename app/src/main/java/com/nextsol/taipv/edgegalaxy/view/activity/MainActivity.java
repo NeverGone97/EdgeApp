@@ -7,18 +7,23 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nextsol.taipv.edgegalaxy.R;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener{
     private LinearLayout linearLayout, linearPermis, itemShare, item_power_saving,
             item_screen_edge, itemThemPaper, itemEdgeScreen, itemAdvance, itemIcon,
             itemPeopleEdge, itemAppEdge, itemMusic, itemRingtone;
     private TextView tvPermission,numberContact;
+    private SwitchCompat switchCompat;
+    ImageView banner;
     private static final int CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084;
 
     @Override
@@ -57,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
+
+        banner.setOnClickListener(this);
         itemShare.setOnClickListener(this);
         item_power_saving.setOnClickListener(this);
         item_screen_edge.setOnClickListener(this);
@@ -68,9 +75,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         itemAppEdge.setOnClickListener(this);
         itemMusic.setOnClickListener(this);
         itemRingtone.setOnClickListener(this);
+        switchCompat.setOnCheckedChangeListener(this);
     }
 
     private void initView() {
+        banner=findViewById(R.id.banner);
         linearLayout = findViewById(R.id.hide_permiss);
         linearLayout.setVisibility(View.GONE);
         tvPermission = findViewById(R.id.tv_permission);
@@ -87,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         itemMusic = findViewById(R.id.item_music);
         itemRingtone=findViewById(R.id.item_ringtone);
         numberContact=findViewById(R.id.numberContact);
+        switchCompat=findViewById(R.id.swichButton);
     }
 
     /**
@@ -156,6 +166,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.item_ringtone:
                 intentActivity(NavigationHome.class);
                 break;
+            case R.id.banner:
+                intentActivity(WeatherUtils.class);
+                break;
         }
     }
 
@@ -179,5 +192,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sendIntent.putExtra(Intent.EXTRA_TEXT, s);
         sendIntent.setType("text/plain");
         startActivity(sendIntent);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked){
+            intentActivity(UtilsWidget.class);
+        }
     }
 }

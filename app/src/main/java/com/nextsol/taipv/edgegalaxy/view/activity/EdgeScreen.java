@@ -15,7 +15,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class EdgeScreen extends AppCompatActivity {
-    Integer[]mImage={R.drawable.music_edge_ic_next,R.drawable.ic_app_wall_carrot3,R.drawable.ic_launcher_viber,R.drawable.skype_blue};
+    Integer[]mImage={R.drawable.ed_contact,R.drawable.ed_music,R.drawable.ed_app,R.drawable.ed_compass
+    ,R.drawable.ed_weather,R.drawable.ed_note,R.drawable.ed_entertai,R.drawable.ed_utils};
 
     public static final String TAG="edgescreen";
     @Override

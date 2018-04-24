@@ -18,6 +18,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -51,6 +53,7 @@ public class LocalMusic extends Fragment implements View.OnClickListener {
     private RecyclerView rcv_local_music;
     private ImageView imgPlay,imgNext;
     private TextView tvSong,tvArtise;
+    private RelativeLayout barPlay;
     //service
     private MusicService musicSrv;
     private Intent playIntent;
@@ -191,6 +194,7 @@ public class LocalMusic extends Fragment implements View.OnClickListener {
         imgPlay.setOnClickListener(this);
         imgNext.setOnClickListener(this);
         imgPause.setOnClickListener(this);
+        barPlay.setOnClickListener(this);
         seekBar.setMax(100000);
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -220,6 +224,7 @@ public class LocalMusic extends Fragment implements View.OnClickListener {
         imgNext=view.findViewById(R.id.img_next);
         tvSong=view.findViewById(R.id.tv_name_song);
         tvArtise=view.findViewById(R.id.tv_name_author);
+        barPlay=view.findViewById(R.id.relay_bar_play);
         seekBar=view.findViewById(R.id.seek_duration);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         rcv_local_music.setLayoutManager(manager);
@@ -285,7 +290,20 @@ public class LocalMusic extends Fragment implements View.OnClickListener {
                 musicSrv.playNext();
                 updatePost(position);
                 break;
+            case R.id.relay_bar_play:
+                addFragment(new MusicControll());
+                break;
         }
+    }
+
+    private void addFragment(Fragment fragment) {
+
+        FragmentTransaction ft=getChildFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.anim.slide_in_up,R.anim.slide_out_up);
+        ft.add(R.id.control_frame,fragment);
+        ft.addToBackStack(null);
+        ft.commit();
+
     }
 
     public void UpdateTimeSong(){

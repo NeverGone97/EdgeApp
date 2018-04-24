@@ -6,6 +6,9 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -30,6 +33,7 @@
         <activity android:name=".view.activity.ShowListApp" />
         <activity android:name=".view.activity.Music" />
         <activity android:name=".view.activity.NavigationHome" />
+        <activity android:name=".view.activity.WeatherUtils" />
 
         <service
             android:name=".view.activity.FloatingViewService"
@@ -39,6 +43,7 @@
 
         <activity android:name=".view.activity.AppsEdge" />
         <activity android:name=".view.activity.BigerImage"></activity>
+        <activity android:name=".view.activity.UtilsWidget"></activity>
     </application>
 
 </manifest>
