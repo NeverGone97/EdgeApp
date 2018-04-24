@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+<LinearLayout
+    android:layout_alignParentRight="true"
+    android:layout_width="@dimen/dp200"
+    android:orientation="vertical"
+    android:background="#808fcdf4"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_marginTop="@dimen/dp60"
+        android:text="S Planer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:id="@+id/tv_today"
+        android:textSize="18sp"
+        android:layout_marginTop="@dimen/dp10"
+        android:text="23/43/2018"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="@dimen/dp10"
+        android:id="@+id/listNote"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>
+    <ImageView
+        android:id="@+id/img_addNote"
+        android:layout_marginRight="@dimen/dp30"
+        android:layout_marginBottom="@dimen/dp50"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_width="@dimen/dp80"
+        android:layout_height="@dimen/dp80"
+        android:src="@drawable/plus_btn"
+        android:layout_alignParentRight="true" />
+</RelativeLayout>
