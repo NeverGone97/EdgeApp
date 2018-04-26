@@ -75,4 +75,16 @@
         <item name="android:textColor">@color/graydetail</item>
         <item name="android:textSize">16sp</item>
     </style>
+    <style name="buton_control">
+        <item name="android:layout_margin">@dimen/dp10</item>
+        <item name="android:layout_width">@dimen/dp100</item>
+        <item name="android:layout_height">@dimen/dp100</item>
+        <item name="android:background">@drawable/bordercontrol</item>
+        <item name="android:padding">@dimen/dp15</item>
+    </style>
+    <style name="btn_control">
+        <item name="android:padding">@dimen/dp15</item>
+        <item name="android:layout_width">@dimen/dp90</item>
+        <item name="android:layout_height">@dimen/dp90</item>
+    </style>
 </resources>

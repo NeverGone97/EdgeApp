@@ -1,25 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:padding="@dimen/dp15"
+    >
+
+    <LinearLayout
+        android:layout_height="@dimen/dp100"
+        android:background="@drawable/bordercontrol"
+        android:id="@+id/lnscreen"
+        android:layout_width="@dimen/dp230"
+        android:layout_below="@+id/lnOption">
+
+        <ImageView
+            android:layout_width="@dimen/dp90"
+            android:layout_height="@dimen/dp90"
+            android:padding="@dimen/dp18"
+            android:src="@drawable/screen" />
+
+        <TextView
+            android:gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/screen"
+            android:textColor="@color/white"
+            android:padding="@dimen/dp18"
+            />
+    </LinearLayout>
 
     <SeekBar
         android:id="@+id/sb_brightness"
-        android:layout_width="150dp"
+        android:layout_width="@dimen/dp270"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="40dp"
         android:progress="50"
         android:progressDrawable="@drawable/sb_control"
-        android:thumb="@null"
         android:rotation="270"
-        android:layout_marginTop="200dp"
-        /> <SeekBar
-    android:id="@+id/sb_volumn"
-    android:layout_width="150dp"
-    android:layout_height="wrap_content"
-    android:progress="50"
-    android:progressDrawable="@drawable/sb_control"
-    android:thumb="@null"
-    android:rotation="270"
-    android:layout_marginTop="200dp"
-    android:layout_toRightOf="@id/sb_brightness" />
+        android:thumb="@null"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="40dp" />
+
+
+    <SeekBar
+        android:id="@+id/sb_volumn"
+        android:layout_width="@dimen/dp270"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="-45dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:progress="50"
+        android:progressDrawable="@drawable/sb_control"
+        android:rotation="270"
+        android:thumb="@null"
+        android:layout_alignParentRight="true" />
+
+    <LinearLayout
+        android:id="@+id/lnOption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="186dp">
+
+        <ImageView
+            style="@style/buton_control"
+            android:padding="@dimen/dp18"
+            android:src="@drawable/haftmoon" />
+
+        <ImageView
+            style="@style/buton_control"
+            android:background="@drawable/rotate_bg"
+            android:padding="@dimen/dp18"
+            android:src="@drawable/ic_lock_rotate" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginBottom="@dimen/dp100"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            style="@style/buton_control"
+            android:src="@drawable/ic_flash"
+            />
+        <ImageView
+            style="@style/buton_control"
+                android:src="@drawable/ic_clock"
+            />
+        <ImageView
+            style="@style/buton_control"
+            android:padding="@dimen/dp3"
+            android:src="@drawable/ic_clean_memory"
+            />
+        <ImageView
+            android:padding="@dimen/dp18"
+            style="@style/buton_control"
+            android:src="@drawable/ic_camera"
+            />
+    </LinearLayout>
+    <RelativeLayout
+        android:background="@drawable/bordercontrol"
+        android:layout_width="@dimen/dp200"
+        android:layout_height="@dimen/dp200">
+        <ImageView
+            android:id="@+id/img_arimode"
+            style="@style/btn_control"
+            android:src="@drawable/ic_airplanemode"
+            android:background="@drawable/bg_airplanmode"
+            />
+        <ImageView
+            android:layout_alignParentRight="true"
+            style="@style/btn_control"
+            android:src="@drawable/status_bar_toggle_sync_off"
+            android:background="@drawable/bg_sync"
+            />
+        <ImageView
+            android:layout_alignParentBottom="true"
+            style="@style/btn_control"
+            android:src="@drawable/status_bar_toggle_wifi_off"
+            android:background="@drawable/bg_wifi"
+            />
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            style="@style/btn_control"
+            android:src="@drawable/ic_bluetooth"
+            android:background="@drawable/bg_wifi"
+            />
+    </RelativeLayout>
 </RelativeLayout>
