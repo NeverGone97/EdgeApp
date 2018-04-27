@@ -3,66 +3,85 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
-    android:padding="@dimen/dp15"
-    >
+    android:padding="@dimen/dp15">
 
     <LinearLayout
-        android:layout_height="@dimen/dp100"
-        android:background="@drawable/bordercontrol"
+        android:layout_above="@id/ln_bot"
         android:id="@+id/lnscreen"
-        android:layout_width="@dimen/dp230"
-        android:layout_below="@+id/lnOption">
+        android:layout_width="@dimen/dp180"
+        android:layout_height="@dimen/dp90"
+        android:layout_marginLeft="@dimen/dp35"
+        android:background="@drawable/bordercontrol">
 
         <ImageView
-            android:layout_width="@dimen/dp90"
-            android:layout_height="@dimen/dp90"
+            android:layout_width="@dimen/dp80"
+            android:layout_height="@dimen/dp80"
             android:padding="@dimen/dp18"
             android:src="@drawable/screen" />
 
         <TextView
-            android:gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:text="@string/screen"
-            android:textColor="@color/white"
-            android:padding="@dimen/dp18"
-            />
+            android:paddingTop="@dimen/dp18"
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <SeekBar
+
         android:id="@+id/sb_brightness"
-        android:layout_width="@dimen/dp270"
+        android:layout_width="@dimen/dp230"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="@dimen/dp60"
         android:progress="50"
         android:progressDrawable="@drawable/sb_control"
         android:rotation="270"
+        android:layout_above="@id/ln_bot"
+        android:layout_marginBottom="@dimen/dp55"
         android:thumb="@null"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="40dp" />
-
-
-    <SeekBar
-        android:id="@+id/sb_volumn"
-        android:layout_width="@dimen/dp270"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="-45dp"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:progress="50"
-        android:progressDrawable="@drawable/sb_control"
-        android:rotation="270"
-        android:thumb="@null"
+        android:layout_marginRight="@dimen/dp60"
         android:layout_alignParentRight="true" />
 
-    <LinearLayout
-        android:id="@+id/lnOption"
-        android:layout_width="wrap_content"
+    <SeekBar
+        android:layout_above="@id/ln_bot"
+        android:id="@+id/sb_volumn"
+        android:layout_width="@dimen/dp230"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="186dp">
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="-32dp"
+        android:layout_marginBottom="@dimen/dp55"
+        android:progress="50"
+        android:progressDrawable="@drawable/sb_control"
+        android:rotation="270"
+        android:thumb="@null" />
+
+    <ImageView
+        android:id="@+id/img_bright"
+        android:layout_width="@dimen/dp50"
+        android:layout_height="@dimen/dp50"
+        android:layout_alignBottom="@+id/lnscreen"
+        android:layout_marginLeft="@dimen/dp250"
+        android:src="@drawable/ic_brightness_0" />
+
+    <ImageView
+
+        android:layout_width="@dimen/dp50"
+        android:layout_height="@dimen/dp50"
+        android:layout_alignBottom="@+id/lnscreen"
+        android:layout_marginLeft="@dimen/dp360"
+        android:src="@drawable/ic_volume_2" />
+
+    <LinearLayout
+        android:layout_above="@id/lnscreen"
+        android:id="@+id/lnOption"
+        android:layout_marginLeft="@dimen/dp25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <ImageView
             style="@style/buton_control"
@@ -75,59 +94,140 @@
             android:padding="@dimen/dp18"
             android:src="@drawable/ic_lock_rotate" />
     </LinearLayout>
+
     <LinearLayout
-        android:layout_marginBottom="@dimen/dp100"
+        android:id="@+id/ln_bot"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_marginBottom="@dimen/dp140"
+        android:orientation="horizontal">
+
         <ImageView
             style="@style/buton_control"
-            android:src="@drawable/ic_flash"
-            />
+            android:src="@drawable/ic_flash" />
+
         <ImageView
             style="@style/buton_control"
-                android:src="@drawable/ic_clock"
-            />
+            android:src="@drawable/ic_clock" />
+
         <ImageView
             style="@style/buton_control"
             android:padding="@dimen/dp3"
-            android:src="@drawable/ic_clean_memory"
-            />
+            android:src="@drawable/ic_clean_memory" />
+
         <ImageView
-            android:padding="@dimen/dp18"
             style="@style/buton_control"
-            android:src="@drawable/ic_camera"
-            />
+            android:padding="@dimen/dp18"
+            android:src="@drawable/ic_camera" />
     </LinearLayout>
+
     <RelativeLayout
-        android:background="@drawable/bordercontrol"
-        android:layout_width="@dimen/dp200"
-        android:layout_height="@dimen/dp200">
+        android:layout_marginBottom="@dimen/dp70"
+        android:layout_above="@id/sb_volumn"
+        android:layout_width="@dimen/dp180"
+        android:layout_height="@dimen/dp180"
+        android:layout_alignLeft="@+id/lnscreen"
+        android:layout_marginTop="@dimen/dp30"
+        android:background="@drawable/bordercontrol">
+
         <ImageView
             android:id="@+id/img_arimode"
             style="@style/btn_control"
-            android:src="@drawable/ic_airplanemode"
             android:background="@drawable/bg_airplanmode"
-            />
+            android:src="@drawable/ic_airplanemode" />
+
         <ImageView
-            android:layout_alignParentRight="true"
+            android:id="@+id/img_sync"
             style="@style/btn_control"
-            android:src="@drawable/status_bar_toggle_sync_off"
+            android:layout_alignParentRight="true"
             android:background="@drawable/bg_sync"
-            />
+            android:src="@drawable/status_bar_toggle_sync_off" />
+
         <ImageView
-            android:layout_alignParentBottom="true"
+            android:id="@+id/img_wifi"
             style="@style/btn_control"
-            android:src="@drawable/status_bar_toggle_wifi_off"
+            android:layout_alignParentBottom="true"
             android:background="@drawable/bg_wifi"
-            />
+            android:src="@drawable/status_bar_toggle_wifi_off" />
+
         <ImageView
+            android:id="@+id/img_bluetooth"
+            style="@style/btn_control"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            style="@style/btn_control"
-            android:src="@drawable/ic_bluetooth"
             android:background="@drawable/bg_wifi"
-            />
+            android:src="@drawable/status_bar_toggle_bluetooth_off" />
     </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_above="@id/sb_volumn"
+        android:layout_width="@dimen/dp180"
+        android:layout_height="@dimen/dp180"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="@dimen/dp30"
+        android:layout_marginRight="@dimen/dp50"
+        android:layout_marginBottom="@dimen/dp70"
+        android:background="@drawable/bordercontrol">
+
+        <ImageView
+            android:layout_marginTop="@dimen/dp10"
+            android:id="@+id/img_music_item"
+            android:layout_width="@dimen/dp60"
+            android:layout_height="@dimen/dp60"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/edge_music" />
+
+        <TextView
+            android:id="@+id/tv_name_song"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_music_item"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp5"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true" />
+
+        <TextView
+            android:id="@+id/tv_artise_control"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_name_song"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp5"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true" />
+
+        <ImageView
+            android:id="@+id/img_play_control"
+            android:layout_width="@dimen/dp30"
+            android:layout_height="@dimen/dp30"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/dp15"
+            android:src="@drawable/music_edge_ic_play" />
+
+        <ImageView
+
+            android:layout_width="@dimen/dp30"
+            android:layout_height="@dimen/dp30"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dp15"
+            android:layout_marginLeft="@dimen/dp10"
+            android:layout_toRightOf="@id/img_play_control"
+            android:src="@drawable/music_edge_ic_next" />
+
+        <ImageView
+            android:layout_width="@dimen/dp30"
+            android:layout_height="@dimen/dp30"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dp15"
+            android:layout_marginRight="@dimen/dp10"
+            android:layout_toLeftOf="@id/img_play_control"
+            android:src="@drawable/music_edge_ic_prev" />
+    </RelativeLayout>
+
 </RelativeLayout>
