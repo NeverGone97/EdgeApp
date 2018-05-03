@@ -36,17 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Check if the application has draw over other apps permission or not?
         //This permission is by default available for API<23. But for API > 23
         //you have to ask for the permission in runtime.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
 
-
-            //If the draw over permission is not available open the settings screen
-            //to grant the permission.
-            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                    Uri.parse("package:" + getPackageName()));
-            startActivityForResult(intent, CODE_DRAW_OVER_OTHER_APP_PERMISSION);
-        } else {
-            initializeView();
-        }
     }
 
     private void initEvents() {
@@ -75,7 +65,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         itemAppEdge.setOnClickListener(this);
         itemMusic.setOnClickListener(this);
         itemRingtone.setOnClickListener(this);
-        switchCompat.setOnCheckedChangeListener(this);
+//        switchCompat.setOnCheckedChangeListener(this);
+        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(getApplicationContext())) {
+
+
+                        //If the draw over permission is not available open the settings screen
+                        //to grant the permission.
+                        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                                Uri.parse("package:" + getPackageName()));
+                        startActivityForResult(intent, CODE_DRAW_OVER_OTHER_APP_PERMISSION);
+                    } else {
+                        initializeView();
+                    }
+                }
+            }
+        });
     }
 
     private void initView() {

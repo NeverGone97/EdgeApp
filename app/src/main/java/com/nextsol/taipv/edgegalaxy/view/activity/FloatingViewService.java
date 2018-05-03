@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
+import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -11,6 +12,15 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.nextsol.taipv.edgegalaxy.R;
+import com.nextsol.taipv.edgegalaxy.view.ControlCenter;
+import com.nextsol.taipv.edgegalaxy.view.UtilsQuickTools;
+import com.nextsol.taipv.edgegalaxy.view.UtilsSPlaner;
+import com.nextsol.taipv.edgegalaxy.view.adapter.ViewpagerAdapter;
+import com.nextsol.taipv.edgegalaxy.view.fragment.Fragments;
+import com.nextsol.taipv.edgegalaxy.view.fragment.LocalMusic;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class FloatingViewService extends Service {
@@ -98,7 +108,10 @@ public class FloatingViewService extends Service {
                                 //visibility of the collapsed layout will be changed to "View.GONE"
                                 //and expanded view will become visible.
                                 collapsedView.setVisibility(View.GONE);
-                                expandedView.setVisibility(View.VISIBLE);
+//                                expandedView.setVisibility(View.VISIBLE);
+                                Intent intent=new Intent(FloatingViewService.this,UtilsWidget.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
                             }
                         }
                         return true;

@@ -40,7 +40,7 @@
             android:layout_height="@dimen/dp12"
             android:layout_marginLeft="@dimen/dp2"
             android:layout_marginTop="@dimen/dp10"
-            android:src="@drawable/dot" />
+             />
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

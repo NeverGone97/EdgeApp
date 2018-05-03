@@ -1,17 +1,26 @@
 package com.nextsol.taipv.edgegalaxy.view;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SyncAdapterType;
 import android.content.pm.PackageManager;
+import android.hardware.Camera;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraManager;
 import android.media.AudioManager;
 import android.media.Image;
+import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.AlarmClock;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,6 +34,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.nextsol.taipv.edgegalaxy.R;
 
@@ -35,15 +45,24 @@ public class ControlCenter extends Fragment implements View.OnClickListener {
     private SeekBar sbBrightness, sbVollumn;
     int x, y;
     private WifiManager wifiManager;
-    private ImageView imgWifi,imgBlue,imgSync,img_arimode;
+    private ImageView imgWifi, imgBlue, imgSync, img_arimode, imgRotate, imgDisturb, imgCamera, imgSetAlarm, imgFlash, imgClear,imgTouchOff;
     private BluetoothAdapter mBluetoothAdapter;
-
+    private Camera mCamera;
+    private Camera.Parameters parameters;
+    private CameraManager camManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         wifiManager = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        mBluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        checkpermis();
+        try {
+            requestpermis();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        changeWriteSettingsPermission(getContext());
     }
 
     @Nullable
@@ -55,12 +74,6 @@ public class ControlCenter extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        checkPermissionForReadExtertalStorage();
-//        try {
-//            requestPermissionForReadExtertalStorage();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
         initView(view);
         try {
             initEvent();
@@ -74,14 +87,25 @@ public class ControlCenter extends Fragment implements View.OnClickListener {
         imgBlue.setOnClickListener(this);
         imgSync.setOnClickListener(this);
         img_arimode.setOnClickListener(this);
-        if(wifiManager.isWifiEnabled()){
+        imgRotate.setOnClickListener(this);
+        imgDisturb.setOnClickListener(this);
+        imgFlash.setOnClickListener(this);
+        imgCamera.setOnClickListener(this);
+        imgSetAlarm.setOnClickListener(this);
+        imgClear.setOnClickListener(this);
+        imgTouchOff.setOnClickListener(this);
+        if (wifiManager.isWifiEnabled()) {
             imgWifi.setImageResource(R.drawable.status_bar_toggle_wifi_on);
         }
-        if(mBluetoothAdapter.isEnabled()){
+        if (mBluetoothAdapter.isEnabled()) {
             imgBlue.setImageResource(R.drawable.status_bar_toggle_bluetooth_on);
         }
-        if (ContentResolver.getMasterSyncAutomatically()){
+        if (ContentResolver.getMasterSyncAutomatically()) {
             imgSync.setImageResource(R.drawable.status_bar_toggle_sync_on);
+        }
+        if (android.provider.Settings.System.getInt(getContext().getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0) == 1) {
+            imgRotate.setImageResource(R.drawable.ic_unlock_rotate);
+            imgRotate.setBackgroundResource(R.drawable.border_shadow);
         }
         int oldBrightness = Settings.System.getInt(getContext().getContentResolver(),
                 Settings.System.SCREEN_BRIGHTNESS);
@@ -91,16 +115,16 @@ public class ControlCenter extends Fragment implements View.OnClickListener {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                Context context = getContext();
 
                 // Check whether has the write settings permission or not.
-                boolean settingsCanWrite = hasWriteSettingsPermission(context);
+                boolean settingsCanWrite = hasWriteSettingsPermission(getContext());
+
                 // If do not have then open the Can modify system settings panel.
                 x = (int) (progress * 2.55);
                 if (!settingsCanWrite) {
-                    changeWriteSettingsPermission(context);
+                    changeWriteSettingsPermission(getContext());
                 } else {
-                    changeScreenBrightness(context, x);
+                    changeScreenBrightness(getContext(), x);
                 }
             }
 
@@ -139,9 +163,16 @@ public class ControlCenter extends Fragment implements View.OnClickListener {
         sbBrightness = view.findViewById(R.id.sb_brightness);
         sbVollumn = view.findViewById(R.id.sb_volumn);
         imgWifi = view.findViewById(R.id.img_wifi);
-        imgBlue=view.findViewById(R.id.img_bluetooth);
-        imgSync=view.findViewById(R.id.img_sync);
-        img_arimode=view.findViewById(R.id.img_arimode);
+        imgBlue = view.findViewById(R.id.img_bluetooth);
+        imgSync = view.findViewById(R.id.img_sync);
+        imgRotate = view.findViewById(R.id.rotate_off);
+        img_arimode = view.findViewById(R.id.img_arimode);
+        imgDisturb = view.findViewById(R.id.disturb);
+        imgFlash = view.findViewById(R.id.img_touch);
+        imgSetAlarm = view.findViewById(R.id.img_setalarm);
+        imgCamera = view.findViewById(R.id.img_camera);
+        imgClear = view.findViewById(R.id.img_clear);
+        imgTouchOff=view.findViewById(R.id.img_tourch_off);
     }
 
     public boolean checkPermissionForReadExtertalStorage() {
@@ -193,7 +224,7 @@ public class ControlCenter extends Fragment implements View.OnClickListener {
         */
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -210,28 +241,175 @@ public class ControlCenter extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.img_bluetooth:
-                if(mBluetoothAdapter.isEnabled()){
-                        mBluetoothAdapter.disable();
-                        imgBlue.setImageResource(R.drawable.status_bar_toggle_bluetooth_off);
-                }else {
+                if (mBluetoothAdapter.isEnabled()) {
+                    mBluetoothAdapter.disable();
+                    imgBlue.setImageResource(R.drawable.status_bar_toggle_bluetooth_off);
+                } else {
                     mBluetoothAdapter.enable();
                     imgBlue.setImageResource(R.drawable.status_bar_toggle_bluetooth_on);
                 }
                 break;
             case R.id.img_sync:
-                if(ContentResolver.getMasterSyncAutomatically()){
+                if (ContentResolver.getMasterSyncAutomatically()) {
                     ContentResolver.setMasterSyncAutomatically(false);
                     imgSync.setImageResource(R.drawable.status_bar_toggle_sync_off);
 
-                }else {
+                } else {
                     ContentResolver.setMasterSyncAutomatically(true);
                     imgSync.setImageResource(R.drawable.status_bar_toggle_sync_on);
 
                 }
                 break;
+
             case R.id.img_arimode:
-                Settings.Global.putString(getContext().getContentResolver(), "airplane_mode_on", "1");
+                Intent i = new Intent(Settings.ACTION_AIRPLANE_MODE_SETTINGS);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getContext().startActivity(i);
                 break;
+            case R.id.rotate_off:
+                if (android.provider.Settings.System.getInt(getContext().getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0) == 1) {
+                    android.provider.Settings.System.putInt(getContext().getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
+                    Toast.makeText(getContext(), "Rotation OFF", Toast.LENGTH_SHORT).show();
+                    imgRotate.setImageResource(R.drawable.ic_lock_rotate);
+                    imgRotate.setBackgroundResource(R.drawable.rotate_bg);
+                } else {
+                    android.provider.Settings.System.putInt(getContext().getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 1);
+                    Toast.makeText(getContext(), "Rotation ON", Toast.LENGTH_SHORT).show();
+                    imgRotate.setImageResource(R.drawable.ic_unlock_rotate);
+                    imgRotate.setBackgroundResource(R.drawable.border_shadow);
+                }
+                break;
+            case R.id.disturb:
+                NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+                // Check if the notification policy access has been granted for the app.
+                if (!mNotificationManager.isNotificationPolicyAccessGranted()) {
+                    Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                    getContext().startActivity(intent);
+                }
+                break;
+            case R.id.img_camera:
+                intentCamera();
+                break;
+            case R.id.img_setalarm:
+                intentAlarm();
+                break;
+            case R.id.img_touch:
+                turnFlashlightOn();
+                imgTouchOff.setVisibility(View.VISIBLE);
+                imgFlash.setVisibility(View.GONE);
+                Log.d(TAG, "onClick:plpl ");
+                break;
+            case R.id.img_tourch_off:
+                turnFlashlightOff();
+                imgTouchOff.setVisibility(View.GONE);
+                imgFlash.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    private void intentAlarm() {
+        Intent i = new Intent(AlarmClock.ACTION_SET_ALARM);
+        i.putExtra(AlarmClock.EXTRA_MESSAGE, "New Alarm");
+        i.putExtra(AlarmClock.EXTRA_HOUR, 10);
+        i.putExtra(AlarmClock.EXTRA_MINUTES, 30);
+        startActivity(i);
+    }
+
+    private void intentCamera() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        getContext().startActivity(intent);
+    }
+
+    public boolean run(Context context) {
+        boolean isEnabled = isAirplaneModeOn(context);
+        // Toggle airplane mode.
+        setSettings(context, isEnabled ? 1 : 0);
+        // Post an intent to reload.
+        Intent intent = new Intent(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+        intent.putExtra("state", !isEnabled);
+        context.sendBroadcast(intent);
+        return true;
+    }
+
+    public static boolean isAirplaneModeOn(Context context) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            return Settings.System.getInt(context.getContentResolver(),
+                    Settings.System.AIRPLANE_MODE_ON, 0) != 0;
+        } else {
+            return Settings.Global.getInt(context.getContentResolver(),
+                    Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
+        }
+    }
+
+    public boolean checkpermis() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int result = getContext().checkSelfPermission(Manifest.permission.SET_ALARM);
+            return result == PackageManager.PERMISSION_GRANTED;
+        }
+        return false;
+    }
+
+    public void requestpermis() throws Exception {
+        try {
+            ActivityCompat.requestPermissions((Activity) getContext(), new String[]{Manifest.permission.SET_ALARM, Manifest.permission.CAMERA},
+                    99);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static void setSettings(Context context, int value) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            Settings.System.putInt(
+                    context.getContentResolver(),
+                    Settings.System.AIRPLANE_MODE_ON, value);
+        } else {
+            Settings.Global.putInt(
+                    context.getContentResolver(),
+                    Settings.Global.AIRPLANE_MODE_ON, value);
+        }
+    }
+
+    private void turnFlashlightOn() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            try {
+                camManager = (CameraManager) getContext().getSystemService(Context.CAMERA_SERVICE);
+                String cameraId = null; // Usually front camera is at 0 position.
+                if (camManager != null) {
+                    cameraId = camManager.getCameraIdList()[0];
+                    camManager.setTorchMode(cameraId, true);
+                }
+            } catch (CameraAccessException e) {
+                Log.e(TAG, e.toString());
+            }
+        } else {
+            mCamera = Camera.open();
+            parameters = mCamera.getParameters();
+            parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+            mCamera.setParameters(parameters);
+            mCamera.startPreview();
+        }
+    }
+
+    private void turnFlashlightOff() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            try {
+                String cameraId;
+                camManager = (CameraManager) getContext().getSystemService(Context.CAMERA_SERVICE);
+                if (camManager != null) {
+                    cameraId = camManager.getCameraIdList()[0]; // Usually front camera is at 0 position.
+                    camManager.setTorchMode(cameraId, false);
+                }
+            } catch (CameraAccessException e) {
+                e.printStackTrace();
+            }
+        } else {
+            mCamera = Camera.open();
+            parameters = mCamera.getParameters();
+            parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+            mCamera.setParameters(parameters);
+            mCamera.stopPreview();
         }
     }
 }
