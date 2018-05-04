@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/orange"
+    android:id="@+id/rl_clear"
+    tools:context=".view.CleartActivity">
+    <TextView
+        android:id="@+id/back_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:textColor="@color/white"
+        android:drawableLeft="@drawable/ic_keyboard_arrow_left_black_24dp"
+        android:text="clean up"
+        />
+    <Button
+        android:id="@+id/btn_clear"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp60"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp30"
+        android:layout_marginLeft="@dimen/dp40"
+        android:layout_marginRight="@dimen/dp40"
+        android:background="@drawable/bg_btn_green"
+        android:text="Clean now"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+<LinearLayout
+    android:layout_centerInParent="true"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_persen"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="27sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/tv_usage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="27sp"
+        android:textStyle="bold" />
+    <ImageView
+        android:scaleType="fitXY"
+        android:visibility="gone"
+        android:src="@drawable/cleaner"
+        android:id="@+id/img_clear"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="@dimen/dp200"
+        android:layout_height="@dimen/dp200"
+        android:layout_marginBottom="@dimen/dp120"
+        />
+</LinearLayout>
+</RelativeLayout>

@@ -22,7 +22,8 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     implementation 'com.android.support:appcompat-v7:27.1.1'
-    compile 'com.github.jlmd:AnimatedCircleLoadingView:1.1.5@aar'
+    compile 'com.roger.catloadinglibrary:catloadinglibrary:1.0.4'
+    compile 'com.github.obolsh:rambooster:1.0.2@aar'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'de.hdodenhof:circleimageview:2.2.0'

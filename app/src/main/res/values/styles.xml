@@ -50,10 +50,7 @@
         <item name="android:layout_marginRight">@dimen/dp20</item>
         <item name="android:layout_marginLeft">@dimen/dp20</item>
     </style>
-    <style name="cardviewCustom">
-        <item name="android:layout_marginLeft">@dimen/dp10</item>
-        <item name="android:layout_marginRight">@dimen/dp10</item>
-    </style>
+
     <style name="marginIcon">
         <item name="android:layout_marginRight">@dimen/dp40</item>
     </style>
@@ -62,11 +59,7 @@
         <item name="android:layout_height">@dimen/dp30</item>
         <item name="android:layout_marginRight">@dimen/dp15</item>
     </style>
-    <style name="customToolbar" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowFullscreen">true</item>
-    </style>
+
     <style name="textLeftDetail">
         <item name="android:textColor">@color/graydetail</item>
         <item name="android:textSize">14sp</item>

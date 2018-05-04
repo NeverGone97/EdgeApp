@@ -36,7 +36,11 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.CleanUtils;
 import com.nextsol.taipv.edgegalaxy.R;
+import com.nextsol.taipv.edgegalaxy.view.activity.PowerSavingMode;
+import com.ram.speed.booster.RAMBooster;
+import com.roger.catloadinglibrary.CatLoadingView;
 
 import static android.content.Context.AUDIO_SERVICE;
 import static com.google.android.gms.plus.PlusOneDummyView.TAG;
@@ -50,7 +54,9 @@ public class ControlCenter extends Fragment implements View.OnClickListener {
     private Camera mCamera;
     private Camera.Parameters parameters;
     private CameraManager camManager;
-
+    private RAMBooster ramBooster;
+    private CatLoadingView catLoadingView;
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +68,11 @@ public class ControlCenter extends Fragment implements View.OnClickListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        changeWriteSettingsPermission(getContext());
+        if(!hasWriteSettingsPermission(getContext())){
+            changeWriteSettingsPermission(getContext());
+        }else {
+            return;
+        }
     }
 
     @Nullable
@@ -160,6 +170,7 @@ public class ControlCenter extends Fragment implements View.OnClickListener {
     }
 
     private void initView(View view) {
+        catLoadingView=new CatLoadingView();
         sbBrightness = view.findViewById(R.id.sb_brightness);
         sbVollumn = view.findViewById(R.id.sb_volumn);
         imgWifi = view.findViewById(R.id.img_wifi);
@@ -304,7 +315,16 @@ public class ControlCenter extends Fragment implements View.OnClickListener {
                 imgTouchOff.setVisibility(View.GONE);
                 imgFlash.setVisibility(View.VISIBLE);
                 break;
+            case R.id.img_clear:
+                intentClear();
+                break;
         }
+    }
+
+    private void intentClear() {
+        Intent intent=new Intent(getActivity(), CleartActivity.class);
+        startActivity(intent);
+
     }
 
     private void intentAlarm() {
@@ -351,7 +371,7 @@ public class ControlCenter extends Fragment implements View.OnClickListener {
 
     public void requestpermis() throws Exception {
         try {
-            ActivityCompat.requestPermissions((Activity) getContext(), new String[]{Manifest.permission.SET_ALARM, Manifest.permission.CAMERA},
+            ActivityCompat.requestPermissions((Activity) getContext(), new String[]{Manifest.permission.SET_ALARM, Manifest.permission.CAMERA,Manifest.permission.READ_CALENDAR,Manifest.permission.WRITE_CALENDAR},
                     99);
         } catch (Exception e) {
             e.printStackTrace();

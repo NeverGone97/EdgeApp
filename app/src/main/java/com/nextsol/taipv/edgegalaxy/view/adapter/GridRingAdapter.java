@@ -48,7 +48,7 @@ public class GridRingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             if(mediaPlayer!=null){
                 mediaPlayer.stop();
-                mediaPlayer.release();
+                        mediaPlayer.release();
                 itemHolder.imgPause.setVisibility(View.GONE);
             }
                      mediaPlayer=MediaPlayer.create(context,ring.getRing());

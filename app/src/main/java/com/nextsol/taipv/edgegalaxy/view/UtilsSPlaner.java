@@ -71,6 +71,7 @@ public class UtilsSPlaner extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         initView(view);
         initEvent();
         getRemind();
@@ -175,7 +176,7 @@ public class UtilsSPlaner extends Fragment {
     }
     public boolean checkPermissionForReadExtertalStorage() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            int result = getActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS);
+            int result = getActivity().checkSelfPermission(Manifest.permission.READ_CALENDAR);
             return result == PackageManager.PERMISSION_GRANTED;
         }
         return false;
