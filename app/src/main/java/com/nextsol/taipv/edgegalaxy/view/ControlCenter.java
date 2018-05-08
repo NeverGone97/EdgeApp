@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SyncAdapterType;
 import android.content.pm.PackageManager;
+import android.graphics.Point;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
@@ -28,7 +29,9 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -41,6 +44,12 @@ import com.nextsol.taipv.edgegalaxy.R;
 import com.nextsol.taipv.edgegalaxy.view.activity.PowerSavingMode;
 import com.ram.speed.booster.RAMBooster;
 import com.roger.catloadinglibrary.CatLoadingView;
+
+import org.jetbrains.annotations.NotNull;
+
+import kotlin.Pair;
+import r21nomi.com.glrippleview.AnimationUtil;
+import r21nomi.com.glrippleview.GLRippleView;
 
 import static android.content.Context.AUDIO_SERVICE;
 import static com.google.android.gms.plus.PlusOneDummyView.TAG;
@@ -68,7 +77,7 @@ public class ControlCenter extends Fragment implements View.OnClickListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(!hasWriteSettingsPermission(getContext())){
+        if(hasWriteSettingsPermission(getContext())){
             changeWriteSettingsPermission(getContext());
         }else {
             return;
@@ -90,6 +99,21 @@ public class ControlCenter extends Fragment implements View.OnClickListener {
         } catch (Settings.SettingNotFoundException e) {
             e.printStackTrace();
         }
+        final GLRippleView glRippleView = view.findViewById(R.id.glRippleView);
+        GLRippleView.Listener gl = new GLRippleView.Listener() {
+            @Override
+            public void onTouchEvent(@NotNull MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    glRippleView.setRipplePoint(new Pair(AnimationUtil.INSTANCE.map(event.getX(), 0f, getWidth(), -1f, 1f),
+                            AnimationUtil.INSTANCE.map(event.getY(), 0f, getHeight(), -1f, 1f)));
+                    float var2 = AnimationUtil.INSTANCE.map(event.getX() / getWidth(), 0.0F, 1.0F, 0.0F, 0.02F);
+                    glRippleView.setRippleOffset(var2);
+                }
+            }
+        };
+        glRippleView.setListener(gl);
+        glRippleView.setFadeDuration(1000);
+        glRippleView.startCrossFadeAnimation();
     }
 
     private void initEvent() throws Settings.SettingNotFoundException {
@@ -431,5 +455,24 @@ public class ControlCenter extends Fragment implements View.OnClickListener {
             mCamera.setParameters(parameters);
             mCamera.stopPreview();
         }
+    }
+    private int getWidth() {
+        Point size = new Point();
+        getDisplay().getSize(size);
+        return size.x;
+
+    }
+
+    private int getHeight() {
+        Point size = new Point();
+        getDisplay().getSize(size);
+        return size.y;
+    }
+
+    private Display getDisplay() {
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+
+
+        return display;
     }
 }

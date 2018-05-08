@@ -1,10 +1,13 @@
 package com.nextsol.taipv.edgegalaxy.view.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
@@ -114,6 +117,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.notify_me).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                checkPermissionForReadExtertalStorage();
+                try {
+                    requestPermissionForReadExtertalStorage();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 startService(new Intent(MainActivity.this, FloatingViewService.class));
                 finish();
             }
@@ -206,6 +215,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (isChecked){
             intentActivity(UtilsWidget.class);
+        }
+    }
+    public boolean checkPermissionForReadExtertalStorage() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int result = getApplicationContext().checkSelfPermission(Manifest.permission.READ_CALENDAR);
+            return result == PackageManager.PERMISSION_GRANTED;
+
+
+        }
+        return false;
+    }
+
+    public void requestPermissionForReadExtertalStorage() throws Exception {
+        try {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_CALENDAR,Manifest.permission.WRITE_CALENDAR,Manifest.permission.CAMERA,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},
+                    1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
         }
     }
 }

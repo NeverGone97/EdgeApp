@@ -108,10 +108,12 @@ public class FloatingViewService extends Service {
                                 //visibility of the collapsed layout will be changed to "View.GONE"
                                 //and expanded view will become visible.
                                 collapsedView.setVisibility(View.GONE);
+                                
 //                                expandedView.setVisibility(View.VISIBLE);
                                 Intent intent=new Intent(FloatingViewService.this,UtilsWidget.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
+
                             }
                         }
                         return true;

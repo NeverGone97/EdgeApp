@@ -2,9 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/transparent"
-    android:padding="@dimen/dp15">
-
+    >
+    <r21nomi.com.glrippleview.GLRippleView
+        android:id="@+id/glRippleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:backgroundImage="@drawable/gift_background" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/dp15"
+        >
     <LinearLayout
         android:layout_above="@id/ln_bot"
         android:id="@+id/lnscreen"
@@ -239,5 +249,5 @@
             android:layout_toLeftOf="@id/img_play_control"
             android:src="@drawable/music_edge_ic_prev" />
     </RelativeLayout>
-
+    </RelativeLayout>
 </RelativeLayout>

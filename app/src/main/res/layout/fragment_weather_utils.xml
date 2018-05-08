@@ -1,14 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.WeatherUtils">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.WeatherUtils"
+    android:id="@+id/ln_layout"
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    >
+    <r21nomi.com.glrippleview.GLRippleView
+        android:id="@+id/glRippleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        app:backgroundImage="@drawable/gift_background" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/red"
+        android:layout_alignParentRight="true"
+        android:layout_width="@dimen/dp200"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_location"
 
-</FrameLayout>
+            android:layout_marginTop="@dimen/dp80"
+            android:textColor="@color/white"
+            android:drawableLeft="@drawable/weather_locate_icon"
+            android:textSize="20sp"
+            android:drawablePadding="@dimen/dp10"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:text="Ha Noi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/graydetail"
+            android:text="29/12/2018"
+            />
+        <ImageView
+            android:id="@+id/img_icon"
+            android:layout_width="@dimen/dp80"
+            android:layout_height="@dimen/dp80"
+            android:src="@drawable/weather_sunny"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp20"
+            />
+        <TextView
+            android:id="@+id/tv_temp_cur"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="32 º"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:layout_gravity="center_horizontal"
+            />
+        <TextView
+            android:id="@+id/tv_descrip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Broken cloude"
+            android:layout_gravity="center_horizontal"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dp100"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/ln_top"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="High"
+                android:textColor="@color/white"
+                />
+            <TextView
+                android:layout_marginLeft="@dimen/dp60"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Low"
+                android:textColor="@color/white"
+                />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginBottom="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp30"
+                android:layout_below="@id/ln_top"
+                android:id="@+id/ln_mid"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_temp_max"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="30ºC"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    />
+                <TextView
+                    android:id="@+id/tv_temp_min"
+                    android:layout_marginLeft="@dimen/dp40"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="30ºC"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginBottom="@dimen/dp10"
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_below="@id/ln_mid"
+                android:id="@+id/ln_bot"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="UV"
+                    android:textColor="@color/white"
+                    />
+                <TextView
+                    android:layout_marginLeft="@dimen/dp60"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Speed"
+                    android:textColor="@color/white"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginBottom="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_below="@id/ln_bot"
+                android:id="@+id/ln_bott"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="@dimen/dp50"
+                    android:layout_height="@dimen/dp50"
+                    android:src="@drawable/ic_lifeindex_ultravioletrays"
+                    />
+                <ImageView
+                    android:layout_marginLeft="@dimen/dp55"
+                    android:layout_width="@dimen/dp50"
+                    android:layout_height="@dimen/dp50"
+                    android:src="@drawable/ic_lifeindex_wind"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_below="@id/ln_bott"
+                android:id="@+id/ln_bottt"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_uv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                        android:text="Low"
+                    android:textColor="@color/white"
+                    />
+                <TextView
+                    android:id="@+id/tv_windspeed"
+                    android:layout_marginLeft="@dimen/dp60"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3m/s"
+                    android:textColor="@color/white"
+                    />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

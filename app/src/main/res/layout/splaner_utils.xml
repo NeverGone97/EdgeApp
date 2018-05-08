@@ -2,8 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/transparent">
-
+    <r21nomi.com.glrippleview.GLRippleView
+        android:id="@+id/glRippleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:backgroundImage="@drawable/gift_background" />
 <LinearLayout
     android:layout_alignParentRight="true"
     android:layout_width="@dimen/dp200"
@@ -43,4 +48,5 @@
         android:layout_height="@dimen/dp80"
         android:src="@drawable/plus_btn"
         android:layout_alignParentRight="true" />
+
 </RelativeLayout>

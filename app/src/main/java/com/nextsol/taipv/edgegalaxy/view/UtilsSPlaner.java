@@ -7,6 +7,7 @@ import android.content.ContentUris;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,7 +18,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -29,6 +32,8 @@ import com.nextsol.taipv.edgegalaxy.R;
 import com.nextsol.taipv.edgegalaxy.model.SPlaner;
 import com.nextsol.taipv.edgegalaxy.view.adapter.Splaner;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -36,6 +41,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import kotlin.Pair;
+import r21nomi.com.glrippleview.AnimationUtil;
+import r21nomi.com.glrippleview.GLRippleView;
 
 import static com.google.android.gms.plus.PlusOneDummyView.TAG;
 
@@ -65,16 +74,26 @@ public class UtilsSPlaner extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        checkPermissionForReadExtertalStorage();
-        try {
-            requestPermissionForReadExtertalStorage();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
 
         initView(view);
         initEvent();
         getRemind();
+        final GLRippleView glRippleView = view.findViewById(R.id.glRippleView);
+        GLRippleView.Listener gl = new GLRippleView.Listener() {
+            @Override
+            public void onTouchEvent(@NotNull MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    glRippleView.setRipplePoint(new Pair(AnimationUtil.INSTANCE.map(event.getX(), 0f, getWidth(), -1f, 1f),
+                            AnimationUtil.INSTANCE.map(event.getY(), 0f, getHeight(), -1f, 1f)));
+                    float var2 = AnimationUtil.INSTANCE.map(event.getX() / getWidth(), 0.0F, 1.0F, 0.0F, 0.02F);
+                    glRippleView.setRippleOffset(var2);
+                }
+            }
+        };
+        glRippleView.setListener(gl);
+        glRippleView.setFadeDuration(1000);
+        glRippleView.startCrossFadeAnimation();
     }
 
     private void initEvent() {
@@ -174,23 +193,7 @@ public class UtilsSPlaner extends Fragment {
         Splaner splaner=new Splaner(list,getContext());
         rcvListNote.setAdapter(splaner);
     }
-    public boolean checkPermissionForReadExtertalStorage() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            int result = getActivity().checkSelfPermission(Manifest.permission.READ_CALENDAR);
-            return result == PackageManager.PERMISSION_GRANTED;
-        }
-        return false;
-    }
 
-    public void requestPermissionForReadExtertalStorage() throws Exception {
-        try {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_CALENDAR,Manifest.permission.WRITE_CALENDAR},
-                    1);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
-    }
     private String getCalendarUriBase(Activity act) {
 
         String calendarUriBase = null;
@@ -214,5 +217,23 @@ public class UtilsSPlaner extends Fragment {
         }
         return calendarUriBase;
     }
+    private int getWidth() {
+        Point size = new Point();
+        getDisplay().getSize(size);
+        return size.x;
 
+    }
+
+    private int getHeight() {
+        Point size = new Point();
+        getDisplay().getSize(size);
+        return size.y;
+    }
+
+    private Display getDisplay() {
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+
+
+        return display;
+    }
 }
