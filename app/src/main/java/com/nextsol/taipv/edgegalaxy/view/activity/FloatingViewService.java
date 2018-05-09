@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -108,12 +109,11 @@ public class FloatingViewService extends Service {
                                 //visibility of the collapsed layout will be changed to "View.GONE"
                                 //and expanded view will become visible.
                                 collapsedView.setVisibility(View.GONE);
-                                
 //                                expandedView.setVisibility(View.VISIBLE);
                                 Intent intent=new Intent(FloatingViewService.this,UtilsWidget.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
-
+                                stopSelf();
                             }
                         }
                         return true;
@@ -130,6 +130,7 @@ public class FloatingViewService extends Service {
                         if (isViewCollapsed()) {
                             collapsedView.setVisibility(View.VISIBLE);
                             expandedView.setVisibility(View.GONE);
+                            Log.d("xxx", "backbutton: ");
                         }
                         return true;
                 }

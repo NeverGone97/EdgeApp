@@ -9,6 +9,7 @@
 
     >
     <r21nomi.com.glrippleview.GLRippleView
+        android:layout_marginRight="@dimen/dp200"
         android:id="@+id/glRippleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -67,6 +68,7 @@
             android:layout_gravity="center_horizontal"
             />
         <RelativeLayout
+
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/dp100"
             android:layout_height="wrap_content">
@@ -188,4 +190,5 @@
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
+
 </RelativeLayout>

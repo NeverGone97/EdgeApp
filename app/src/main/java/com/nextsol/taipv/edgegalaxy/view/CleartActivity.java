@@ -15,6 +15,7 @@ import com.ram.speed.booster.interfaces.CleanListener;
 import com.ram.speed.booster.interfaces.ScanListener;
 import com.ram.speed.booster.utils.ProcessInfo;
 import com.roger.catloadinglibrary.CatLoadingView;
+import com.skyfishjy.library.RippleBackground;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,11 +33,12 @@ public class CleartActivity extends AppCompatActivity {
     private RAMBooster booster;
     private static final String TAG = "Booster.Test";
     CatLoadingView mView;
-
+    RippleBackground rippleBackground;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cleart);
+        initView();
         myAsyncTask = new MyAsyncTask();
         back_clear=findViewById(R.id.back_clear);
         mView = new CatLoadingView();
@@ -72,7 +74,8 @@ public class CleartActivity extends AppCompatActivity {
                         "Going to clean founded processes: %s", Arrays.toString(apps.toArray())));
             }
         });
-        initView();
+
+
         initEvent();
     }
 
@@ -83,15 +86,14 @@ public class CleartActivity extends AppCompatActivity {
                 finish();
             }
         });
-        imgClear = findViewById(R.id.img_clear);
         btnClear.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+                rippleBackground.stopRippleAnimation();
                 RelativeLayout rl = findViewById(R.id.rl_clear);
                 rl.setBackgroundColor(getResources().getColor(R.color.bluelight));
                 btnClear.setVisibility(View.GONE);
-
                 booster.startClean();
                 booster.setCleanListener(new CleanListener() {
                     @Override
@@ -121,10 +123,11 @@ public class CleartActivity extends AppCompatActivity {
 
 
     private void initView() {
+        imgClear = findViewById(R.id.img_clear);
         btnClear = findViewById(R.id.btn_clear);
         persen = findViewById(R.id.tv_persen);
         usage = findViewById(R.id.tv_usage);
-
+         rippleBackground=(RippleBackground)findViewById(R.id.content);
     }
 
     private class MyClean extends AsyncTask<Integer, String, Integer> {
@@ -161,6 +164,7 @@ public class CleartActivity extends AppCompatActivity {
             mView.dismiss();
             usage.setText(String.valueOf(integer) + " MB Cleaner");
             imgClear.setVisibility(View.VISIBLE);
+
         }
 
         @Override
@@ -203,6 +207,7 @@ public class CleartActivity extends AppCompatActivity {
         protected void onPostExecute(Integer integer) {
             super.onPostExecute(integer);
             mView.dismiss();
+            rippleBackground.startRippleAnimation();
             usage.setText(String.valueOf(integer) + " MB usage");
             imgClear.setVisibility(View.VISIBLE);
         }
