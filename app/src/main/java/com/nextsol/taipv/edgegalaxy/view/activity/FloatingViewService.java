@@ -2,17 +2,24 @@ package com.nextsol.taipv.edgegalaxy.view.activity;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.nextsol.taipv.edgegalaxy.R;
+import com.nextsol.taipv.edgegalaxy.callback.Constants;
+import com.nextsol.taipv.edgegalaxy.utils.SharePre;
 import com.nextsol.taipv.edgegalaxy.view.ControlCenter;
 import com.nextsol.taipv.edgegalaxy.view.UtilsQuickTools;
 import com.nextsol.taipv.edgegalaxy.view.UtilsSPlaner;
@@ -20,20 +27,36 @@ import com.nextsol.taipv.edgegalaxy.view.adapter.ViewpagerAdapter;
 import com.nextsol.taipv.edgegalaxy.view.fragment.Fragments;
 import com.nextsol.taipv.edgegalaxy.view.fragment.LocalMusic;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.google.android.gms.plus.PlusOneDummyView.TAG;
 
 
 public class FloatingViewService extends Service {
     private WindowManager mWindowManager;
     private View mFloatingView;
-
+    private SharedPreferences.Editor editor;
+     ImageView img;
     public FloatingViewService() {
     }
 
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if (intent.getParcelableExtra(Constants.putImage)!=null){
+            Bitmap image=intent.getParcelableExtra(Constants.putImage);
+            img.setImageBitmap(image);
+            Log.d("xxx", "onStartCommand: "+image.toString());
+
+        }
+
+        return START_STICKY;
     }
 
     @Override
@@ -63,7 +86,7 @@ public class FloatingViewService extends Service {
         final View collapsedView = mFloatingView.findViewById(R.id.collapse_view);
         //The root element of the expanded view layout
         final View expandedView = mFloatingView.findViewById(R.id.expanded_container);
-
+        img=mFloatingView.findViewById(R.id.collapsed_iv);
 //        //Set the close button
 //        ImageView closeButtonCollapsed = (ImageView) mFloatingView.findViewById(R.id.close_btn);
 //        closeButtonCollapsed.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +99,8 @@ public class FloatingViewService extends Service {
 
 
         //Drag and move floating view using user's touch action.
+//        String enImage=prefs.getString(Constants.encode,"null");
+//        Log.d("encode", "onCreate: "+enImage);
         mFloatingView.findViewById(R.id.root_container).setOnTouchListener(new View.OnTouchListener() {
             private int initialX;
             private int initialY;
@@ -113,7 +138,7 @@ public class FloatingViewService extends Service {
                                 Intent intent=new Intent(FloatingViewService.this,UtilsWidget.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
-                                stopSelf();
+//                                stopSelf();
                             }
                         }
                         return true;

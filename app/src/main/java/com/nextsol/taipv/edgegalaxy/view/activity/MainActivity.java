@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -19,11 +20,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nextsol.taipv.edgegalaxy.R;
+import com.nextsol.taipv.edgegalaxy.callback.Constants;
+import com.nextsol.taipv.edgegalaxy.utils.SharePre;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener{
     private LinearLayout linearLayout, linearPermis, itemShare, item_power_saving,
             item_screen_edge, itemThemPaper, itemEdgeScreen, itemAdvance, itemIcon,
             itemPeopleEdge, itemAppEdge, itemMusic, itemRingtone;
+    SharePre sharePre;
+    TextView tv_state;
     private TextView tvPermission,numberContact;
     private SwitchCompat switchCompat;
     ImageView banner;
@@ -33,9 +38,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        tv_state=findViewById(R.id.tv_state);
+
+        sharePre=new SharePre(MainActivity.this);
+        if (sharePre.getBoolean(Constants.checkSwich)){
+            initializeView();
+            tv_state.setText("On");
+
+        }else {
+            tv_state.setText("Off");
+
+        }
         initView();
         initEvents();
-
         //Check if the application has draw over other apps permission or not?
         //This permission is by default available for API<23. But for API > 23
         //you have to ask for the permission in runtime.
@@ -69,9 +84,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         itemMusic.setOnClickListener(this);
         itemRingtone.setOnClickListener(this);
 //        switchCompat.setOnCheckedChangeListener(this);
+        Log.d("xxx", "initEvents: "+sharePre.getBoolean(Constants.checkSwich));
+        switchCompat.setChecked( sharePre.getBoolean(Constants.checkSwich));
+
+//        if(sharePre.getBoolean(Constants.checkSwich)==true){
+//            initializeView();
+//        }else {
+//            Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
+//        }
+
+
         switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sharePre.putBoolean(Constants.checkSwich,isChecked);
                 if (isChecked){
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(getApplicationContext())) {
 
@@ -83,7 +109,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         startActivityForResult(intent, CODE_DRAW_OVER_OTHER_APP_PERMISSION);
                     } else {
                         initializeView();
+                        tv_state.setText("On");
                     }
+
+                }else {
+                    tv_state.setText("Off");
                 }
             }
         });

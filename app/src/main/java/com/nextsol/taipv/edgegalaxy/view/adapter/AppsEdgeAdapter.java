@@ -55,7 +55,12 @@ public class AppsEdgeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //                itemHolder.imgDeleteApp.setVisibility(View.VISIBLE);
 //            }
 //        itemHolder.imgDeleteApp.setVisibility(View.VISIBLE);
-        itemHolder.tvNameApp.setText(appsEdge.getNameApp());
+        if (appsEdge.getNameApp().length()>10){
+            itemHolder.tvNameApp.setText(appsEdge.getNameApp().substring(0,10));
+        }else {
+            itemHolder.tvNameApp.setText(appsEdge.getNameApp());
+
+        }
         itemHolder.imgAddApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -21,6 +21,23 @@ public class SharePre {
         pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = pref.edit();
     }
+    public void putString(String key, String value) {
+        editor.putString(key, value);
+        editor.commit();
+    }
+
+    public String getString(String key) {
+        return pref.getString(key, "null");
+    }
+
+    public void putBoolean(String key, boolean value) {
+        editor.putBoolean(key, value);
+        editor.commit();
+    }
+
+    public boolean getBoolean(String key) {
+        return pref.getBoolean(key, false);
+    }
 
     public void saveListContact(String scoreString) {
         editor.putString(LISTCONTACT, scoreString);
