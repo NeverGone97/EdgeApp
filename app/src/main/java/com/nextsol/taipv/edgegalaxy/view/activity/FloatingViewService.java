@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -81,12 +82,16 @@ public class FloatingViewService extends Service {
         //Add the view to the window
         mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         mWindowManager.addView(mFloatingView, params);
-
+        SharePre sharePre=new SharePre(this);
+        String encoded=sharePre.getString(Constants.encode);
+        byte[] imageAsBytes = Base64.decode(encoded.getBytes(), Base64.DEFAULT);
+        Log.d("encode", "onCreate: "+        sharePre.getString(Constants.encode));
         //The root element of the collapsed view layout
         final View collapsedView = mFloatingView.findViewById(R.id.collapse_view);
         //The root element of the expanded view layout
         final View expandedView = mFloatingView.findViewById(R.id.expanded_container);
         img=mFloatingView.findViewById(R.id.collapsed_iv);
+        img.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes,0,imageAsBytes.length));
 //        //Set the close button
 //        ImageView closeButtonCollapsed = (ImageView) mFloatingView.findViewById(R.id.close_btn);
 //        closeButtonCollapsed.setOnClickListener(new View.OnClickListener() {
