@@ -316,6 +316,7 @@
                     </RelativeLayout>
 
                     <Button
+                        android:id="@+id/btn_themes_online"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp60"
                         android:layout_marginBottom="@dimen/dp5"
@@ -651,6 +652,7 @@
 
 
                         <TextView
+                            android:id="@+id/water_effect"
                             style="@style/colorBlue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -660,6 +662,7 @@
                             android:text="3D Water effect" />
 
                         <android.support.v7.widget.SwitchCompat
+                            android:id="@+id/sc_water"
                             style="@style/SwitchCompatStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

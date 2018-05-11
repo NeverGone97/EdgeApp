@@ -60,7 +60,7 @@ public class ItemGridRingView extends Fragment {
         Log.d("posring", "initEvent: " + getArguments().getInt("posring"));
         if (getArguments().getInt("posring") == 0) {
             for (int i = 0; i < 3; i++) {
-                list.add(new Ring(b[i], c[i], a[i]));
+                list.add(new Ring(b[i], c[i], a[i],false));
             }
             GridRingAdapter adapter = new GridRingAdapter(list, getContext());
             recyclerView.setAdapter(adapter);
@@ -82,8 +82,8 @@ public class ItemGridRingView extends Fragment {
 //                }
 //            });
         } else {
-            list.add(new Ring(b[3], c[3], a[3]));
-            list.add(new Ring(b[3], c[3], a[4]));
+            list.add(new Ring(b[3], c[3], a[3],false));
+            list.add(new Ring(b[3], c[3], a[4],false));
 
             GridRingAdapter adapter = new GridRingAdapter(list, getContext());
             recyclerView.setAdapter(adapter);

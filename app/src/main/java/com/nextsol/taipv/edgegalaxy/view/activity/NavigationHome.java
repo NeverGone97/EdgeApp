@@ -1,5 +1,6 @@
 package com.nextsol.taipv.edgegalaxy.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -15,11 +16,13 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.nextsol.taipv.edgegalaxy.R;
+import com.nextsol.taipv.edgegalaxy.callback.Constants;
 import com.nextsol.taipv.edgegalaxy.view.fragment.Icon;
 import com.nextsol.taipv.edgegalaxy.view.fragment.Ringtone;
 import com.nextsol.taipv.edgegalaxy.view.fragment.Wallpaper;
 
 public class NavigationHome extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+
 
     private DrawerLayout mDrawerLayout;
 
@@ -32,7 +35,16 @@ public class NavigationHome extends AppCompatActivity implements NavigationView.
         setContentView(R.layout.navigation_home);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        loadFragment(new Wallpaper());
+        Intent intent=getIntent();
+        int x=intent.getIntExtra(Constants.putFrag,-1);
+        if(x==1){
+            loadFragment(new Wallpaper());
+        }if(x==2){
+            loadFragment(new Icon());
+        }if(x==3){
+            loadFragment(new Ringtone());
+        }
+        
         mDrawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

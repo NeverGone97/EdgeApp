@@ -197,6 +197,7 @@
             </RadioGroup>
 
             <Button
+                android:id="@+id/btn_moreicon"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp60"
                 android:layout_margin="@dimen/dp20"

@@ -12,13 +12,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
+import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.nextsol.taipv.edgegalaxy.R;
 import com.nextsol.taipv.edgegalaxy.callback.Constants;
-import com.nextsol.taipv.edgegalaxy.callback.IPassPos;
-import com.nextsol.taipv.edgegalaxy.model.Contacts;
 import com.nextsol.taipv.edgegalaxy.utils.SharePre;
 
 import java.io.ByteArrayOutputStream;
@@ -26,7 +26,7 @@ import java.io.ByteArrayOutputStream;
 public class IconActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     SharePre sharePre;
-
+    Button btnMoreIcon;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,18 +55,26 @@ public class IconActivity extends AppCompatActivity {
                 }
             }
         });
+        btnMoreIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(IconActivity.this,NavigationHome.class);
+                intent.putExtra(Constants.putFrag,2);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initView() {
         radioGroup = findViewById(R.id.rg_icon);
-
+        btnMoreIcon=findViewById(R.id.btn_moreicon);
     }
 
     private void intent(Bitmap resoureImage) {
         Intent intent = new Intent(IconActivity.this, FloatingViewService.class);
         intent.putExtra(Constants.putImage, resoureImage);
         startService(intent);
-        finish();
+//        finish();
     }
 
     public static Bitmap drawable2Bitmap(final Drawable drawable) {

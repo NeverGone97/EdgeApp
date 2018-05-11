@@ -211,7 +211,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intentActivity(Music.class);
                 break;
             case R.id.item_ringtone:
-                intentActivity(NavigationHome.class);
+                Intent intent=new Intent(MainActivity.this,NavigationHome.class);
+                intent.putExtra(Constants.putFrag,3);
+                startActivity(intent);
                 break;
             case R.id.banner:
                 intentActivity(WeatherUtils.class);

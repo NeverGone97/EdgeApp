@@ -4,12 +4,31 @@ public class Ring {
     private int icon;
     private int ring;
     private String title;
+    private boolean playing;
 
+    public Ring(boolean isPlaying) {
+        this.playing = isPlaying;
+    }
 
     public Ring(int icon, int ring, String title) {
         this.icon = icon;
         this.ring = ring;
         this.title = title;
+    }
+
+    public Ring(int icon, int ring, String title, boolean isPlaying) {
+        this.icon = icon;
+        this.ring = ring;
+        this.title = title;
+        this.playing = isPlaying;
+    }
+
+    public boolean getPlaying() {
+        return playing;
+    }
+
+    public void setPlaying(boolean playing) {
+        this.playing = playing;
     }
 
     public String getTitle() {

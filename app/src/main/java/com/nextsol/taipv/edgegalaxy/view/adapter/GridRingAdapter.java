@@ -5,12 +5,12 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.nextsol.taipv.edgegalaxy.R;
 import com.nextsol.taipv.edgegalaxy.callback.IPassPos;
 import com.nextsol.taipv.edgegalaxy.model.Ring;
@@ -19,55 +19,73 @@ import com.nextsol.taipv.edgegalaxy.view.activity.BigerImage;
 import java.util.List;
 
 public class GridRingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    List<Ring>list;
+    List<Ring> list;
     Context context;
     IPassPos iPassPos;
     MediaPlayer mediaPlayer;
 
     int layout;
+
     public GridRingAdapter(List<Ring> list, Context context) {
         this.list = list;
         this.context = context;
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater=LayoutInflater.from(parent.getContext());
-        return new ItemHolder(inflater.inflate(R.layout.item_ringtone,parent,false));
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        return new ItemHolder(inflater.inflate(R.layout.item_ringtone, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            final ItemHolder itemHolder= (ItemHolder) holder;
-            final Ring ring=list.get(position);
-            itemHolder.imgRing.setImageResource(ring.getIcon());
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
+        final ItemHolder itemHolder = (ItemHolder) holder;
+        final Ring ring = list.get(position);
+        itemHolder.imgRing.setImageResource(ring.getIcon());
         itemHolder.tv_ring.setText(ring.getTitle());
+
         itemHolder.imgPlay.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
+                ClearButton();
+                list.set(position, new Ring(list.get(position).getIcon(), list.get(position).getRing(), list.get(position).getTitle(), true));
+                notifyDataSetChanged();
+                for (int i = 0; i < list.size(); i++) {
+                    Log.d("xxx", "onClick: " + list.get(i).getPlaying());
+                }
+                if (mediaPlayer != null) {
+                    mediaPlayer.stop();
+                    mediaPlayer.release();
+                    itemHolder.imgPause.setVisibility(View.GONE);
+                }
+                mediaPlayer = MediaPlayer.create(context, ring.getRing());
 
-            if(mediaPlayer!=null){
-                mediaPlayer.stop();
-                        mediaPlayer.release();
-                itemHolder.imgPause.setVisibility(View.GONE);
-            }
-                     mediaPlayer=MediaPlayer.create(context,ring.getRing());
-
-                    if(mediaPlayer.isPlaying()){
+                if (mediaPlayer.isPlaying()) {
                     itemHolder.imgPlay.setImageResource(R.drawable.ic_play);
                     mediaPlayer.pause();
-                    }else {
+                } else {
 
-                        itemHolder.imgPause.setVisibility(View.VISIBLE);
-                        itemHolder.imgPlay.setVisibility(View.GONE);
-                        mediaPlayer.start();
-                    }
+                    itemHolder.imgPause.setVisibility(View.VISIBLE);
+                    itemHolder.imgPlay.setVisibility(View.GONE);
+                    mediaPlayer.start();
                 }
-            });
+
+            }
+        });
+        if (ring.getPlaying()) {
+            itemHolder.imgPlay.setVisibility(View.GONE);
+            itemHolder.imgPause.setVisibility(View.VISIBLE);
+
+        } else {
+            itemHolder.imgPlay.setVisibility(View.VISIBLE);
+            itemHolder.imgPause.setVisibility(View.GONE);
+        }
+//            notifyDataSetChanged();
         itemHolder.imgPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mediaPlayer!=null){
+                if (mediaPlayer != null) {
                     mediaPlayer.pause();
                     itemHolder.imgPause.setVisibility(View.GONE);
                     itemHolder.imgPlay.setVisibility(View.VISIBLE);
@@ -77,8 +95,8 @@ public class GridRingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     private void intentToBiggerImage(int icon) {
-        Intent intent=new Intent(context,BigerImage.class);
-        intent.putExtra("icon",icon);
+        Intent intent = new Intent(context, BigerImage.class);
+        intent.putExtra("icon", icon);
         context.startActivity(intent);
     }
 
@@ -94,14 +112,22 @@ public class GridRingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private ImageView imgRing;
         private TextView tv_ring;
         private ImageView imgPause;
+
         public ItemHolder(View view) {
             super(view);
-            imgPlay=view.findViewById(R.id.img_play_ring);
-            imgSetRingtone=view.findViewById(R.id.img_set_ring);
-            imgDownload=view.findViewById(R.id.img_down_ring);
-            imgRing=view.findViewById(R.id.img_ring);
-            tv_ring=view.findViewById(R.id.tv_ring);
-            imgPause=view.findViewById(R.id.img_pause_ring);
+            imgPlay = view.findViewById(R.id.img_play_ring);
+            imgSetRingtone = view.findViewById(R.id.img_set_ring);
+            imgDownload = view.findViewById(R.id.img_down_ring);
+            imgRing = view.findViewById(R.id.img_ring);
+            tv_ring = view.findViewById(R.id.tv_ring);
+            imgPause = view.findViewById(R.id.img_pause_ring);
         }
+    }
+
+    private void ClearButton() {
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).setPlaying(false);
+        }
+        notifyDataSetChanged();
     }
 }

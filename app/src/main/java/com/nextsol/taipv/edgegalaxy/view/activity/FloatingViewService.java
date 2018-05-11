@@ -7,8 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
-import android.preference.PreferenceManager;
-import android.support.v4.view.ViewPager;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
@@ -21,25 +19,14 @@ import android.widget.ImageView;
 import com.nextsol.taipv.edgegalaxy.R;
 import com.nextsol.taipv.edgegalaxy.callback.Constants;
 import com.nextsol.taipv.edgegalaxy.utils.SharePre;
-import com.nextsol.taipv.edgegalaxy.view.ControlCenter;
-import com.nextsol.taipv.edgegalaxy.view.UtilsQuickTools;
-import com.nextsol.taipv.edgegalaxy.view.UtilsSPlaner;
-import com.nextsol.taipv.edgegalaxy.view.adapter.ViewpagerAdapter;
-import com.nextsol.taipv.edgegalaxy.view.fragment.Fragments;
-import com.nextsol.taipv.edgegalaxy.view.fragment.LocalMusic;
-
-import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.google.android.gms.plus.PlusOneDummyView.TAG;
 
 
 public class FloatingViewService extends Service {
     private WindowManager mWindowManager;
     private View mFloatingView;
     private SharedPreferences.Editor editor;
-     ImageView img;
+    ImageView img;
+
     public FloatingViewService() {
     }
 
@@ -50,11 +37,10 @@ public class FloatingViewService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (intent.getParcelableExtra(Constants.putImage)!=null){
-            Bitmap image=intent.getParcelableExtra(Constants.putImage);
+        if (intent.getParcelableExtra(Constants.putImage) != null) {
+            Bitmap image = intent.getParcelableExtra(Constants.putImage);
             img.setImageBitmap(image);
-            Log.d("xxx", "onStartCommand: "+image.toString());
-
+            Log.d("xxx", "onStartCommand: " + image.toString());
         }
 
         return START_STICKY;
@@ -82,16 +68,16 @@ public class FloatingViewService extends Service {
         //Add the view to the window
         mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         mWindowManager.addView(mFloatingView, params);
-        SharePre sharePre=new SharePre(this);
-        String encoded=sharePre.getString(Constants.encode);
+        SharePre sharePre = new SharePre(this);
+        String encoded = sharePre.getString(Constants.encode);
         byte[] imageAsBytes = Base64.decode(encoded.getBytes(), Base64.DEFAULT);
-        Log.d("encode", "onCreate: "+        sharePre.getString(Constants.encode));
+        Log.d("encode", "onCreate: " + sharePre.getString(Constants.encode));
         //The root element of the collapsed view layout
         final View collapsedView = mFloatingView.findViewById(R.id.collapse_view);
         //The root element of the expanded view layout
         final View expandedView = mFloatingView.findViewById(R.id.expanded_container);
-        img=mFloatingView.findViewById(R.id.collapsed_iv);
-        img.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes,0,imageAsBytes.length));
+        img = mFloatingView.findViewById(R.id.collapsed_iv);
+        img.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
 //        //Set the close button
 //        ImageView closeButtonCollapsed = (ImageView) mFloatingView.findViewById(R.id.close_btn);
 //        closeButtonCollapsed.setOnClickListener(new View.OnClickListener() {
@@ -140,10 +126,10 @@ public class FloatingViewService extends Service {
                                 //and expanded view will become visible.
                                 collapsedView.setVisibility(View.GONE);
 //                                expandedView.setVisibility(View.VISIBLE);
-                                Intent intent=new Intent(FloatingViewService.this,UtilsWidget.class);
+                                Intent intent = new Intent(FloatingViewService.this, UtilsWidget.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
-//                                stopSelf();
+                                stopSelf();
                             }
                         }
                         return true;
