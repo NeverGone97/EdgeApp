@@ -176,7 +176,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/dp10"
                             android:layout_toRightOf="@id/img_galaxys9"
-                            android:text="Galaxy S9 S8 Note8 Theme" />
+                            android:text="Galaxy S9 S8 ListApp8 Theme" />
 
                         <android.support.v7.widget.SwitchCompat
                             style="@style/SwitchCompatStyle"

@@ -62,8 +62,8 @@ public class UtilsSPlaner extends Fragment {
     private static final int PROJECTION_BEGIN_INDEX = 1;
     private static final int PROJECTION_TITLE_INDEX = 2;
     private static final int PROJECTION_END_INDEX = 3;
-    RecyclerView rcvListNote;
-    ImageView imgAddNote;
+    RecyclerView rcvListListApp;
+    ImageView imgAddListApp;
     private TextView tvToday;
     @Nullable
     @Override
@@ -79,25 +79,25 @@ public class UtilsSPlaner extends Fragment {
         initView(view);
         initEvent();
         getRemind();
-        final GLRippleView glRippleView = view.findViewById(R.id.glRippleView);
-        GLRippleView.Listener gl = new GLRippleView.Listener() {
-            @Override
-            public void onTouchEvent(@NotNull MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                    glRippleView.setRipplePoint(new Pair(AnimationUtil.INSTANCE.map(event.getX(), 0f, getWidth(), -1f, 1f),
-                            AnimationUtil.INSTANCE.map(event.getY(), 0f, getHeight(), -1f, 1f)));
-                    float var2 = AnimationUtil.INSTANCE.map(event.getX() / getWidth(), 0.0F, 1.0F, 0.0F, 0.02F);
-                    glRippleView.setRippleOffset(var2);
-                }
-            }
-        };
-        glRippleView.setListener(gl);
-        glRippleView.setFadeDuration(1000);
-        glRippleView.startCrossFadeAnimation();
+//        final GLRippleView glRippleView = view.findViewById(R.id.glRippleView);
+//        GLRippleView.Listener gl = new GLRippleView.Listener() {
+//            @Override
+//            public void onTouchEvent(@NotNull MotionEvent event) {
+//                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+//                    glRippleView.setRipplePoint(new Pair(AnimationUtil.INSTANCE.map(event.getX(), 0f, getWidth(), -1f, 1f),
+//                            AnimationUtil.INSTANCE.map(event.getY(), 0f, getHeight(), -1f, 1f)));
+//                    float var2 = AnimationUtil.INSTANCE.map(event.getX() / getWidth(), 0.0F, 1.0F, 0.0F, 0.02F);
+//                    glRippleView.setRippleOffset(var2);
+//                }
+//            }
+//        };
+//        glRippleView.setListener(gl);
+//        glRippleView.setFadeDuration(1000);
+//        glRippleView.startCrossFadeAnimation();
     }
 
     private void initEvent() {
-        imgAddNote.setOnClickListener(new View.OnClickListener() {
+        imgAddListApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 intentToCent();
@@ -113,13 +113,13 @@ public class UtilsSPlaner extends Fragment {
     }
 
     private void initView(View view) {
-        imgAddNote=view.findViewById(R.id.img_addNote);
+        imgAddListApp=view.findViewById(R.id.img_addListApp);
         tvToday=view.findViewById(R.id.tv_today);
         tvToday=view.findViewById(R.id.tv_today);
-        rcvListNote=view.findViewById(R.id.listNote);
+        rcvListListApp=view.findViewById(R.id.listListApp);
         LinearLayoutManager linearLayout=new LinearLayoutManager(getContext());
-        rcvListNote.setLayoutManager(linearLayout);
-        rcvListNote.hasFixedSize();
+        rcvListListApp.setLayoutManager(linearLayout);
+        rcvListListApp.hasFixedSize();
 
     }
 
@@ -191,7 +191,7 @@ public class UtilsSPlaner extends Fragment {
             list.add(new SPlaner(title,formatter.format(beginVal)+"-"+formatter.format(endVal),R.drawable.gold_coin_icon));
         }
         Splaner splaner=new Splaner(list,getContext());
-        rcvListNote.setAdapter(splaner);
+        rcvListListApp.setAdapter(splaner);
     }
 
     private String getCalendarUriBase(Activity act) {

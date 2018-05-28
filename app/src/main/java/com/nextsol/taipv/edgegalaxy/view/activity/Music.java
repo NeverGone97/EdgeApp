@@ -33,7 +33,7 @@ public class Music extends AppCompatActivity {
     private void initEvents() {
         List<Fragments> list=new ArrayList<>();
         list.add(new Fragments(LocalMusic.newInstance(),"Local Music"));
-        list.add(new Fragments(LocalMusic.newInstance(),"Online Music"));
+//        list.add(new Fragments(LocalMusic.newInstance(),"Online Music"));
         ViewpagerAdapter adapter=new ViewpagerAdapter(getSupportFragmentManager(),list);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);

@@ -41,6 +41,8 @@ public class FloatingViewService extends Service {
             Bitmap image = intent.getParcelableExtra(Constants.putImage);
             img.setImageBitmap(image);
             Log.d("xxx", "onStartCommand: " + image.toString());
+        }else {
+            img.setImageResource(R.drawable.icon_appsuggest_2);
         }
 
         return START_STICKY;

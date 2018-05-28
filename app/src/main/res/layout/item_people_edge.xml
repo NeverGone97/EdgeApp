@@ -1,45 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+       android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginBottom="@dimen/dp10"
+        >
 
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           android:layout_marginLeft="@dimen/dp25"
+            android:layout_marginRight="@dimen/dp25"
+            app:cardCornerRadius="@dimen/dp5"
+            app:cardElevation="@dimen/dp4">
 
+            <RelativeLayout
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_marginBottom="@dimen/dp10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <FrameLayout
+                    android:id="@+id/layout_avatar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-            <FrameLayout
-                android:id="@+id/layout_avatar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                <ImageView
+                    android:scaleType="fitXY"
+                    android:id="@+id/img_color_name"
+                    android:layout_width="@dimen/dp54"
+                    android:layout_height="@dimen/dp54"
+                    android:layout_marginLeft="@dimen/dp15"
+                    android:background="@drawable/circle_cornor_yellow" />
+                    <TextView
+                        android:id="@+id/tv_first_name_contact"
+                        android:layout_marginLeft="@dimen/dp32"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp2"
+                        android:textSize="25sp"
+                        android:text="+"
+                        android:textColor="@color/white"
+                        />
+                </FrameLayout>
 
-            <ImageView
-                android:scaleType="fitXY"
-                android:id="@+id/img_color_name"
-                android:layout_width="@dimen/dp54"
-                android:layout_height="@dimen/dp54"
-                android:layout_marginLeft="@dimen/dp10"
-                android:background="@drawable/circle_cornor_yellow" />
                 <TextView
-                    android:id="@+id/tv_first_name_contact"
-                    android:layout_marginLeft="@dimen/dp32"
+                    android:id="@+id/tv_name_contact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp2"
-                    android:textSize="25sp"
-                    android:text="+"
-                    android:textColor="@color/white"
+                    android:layout_gravity="center_vertical"
+                    android:text="Add contact"
+                    android:layout_marginLeft="@dimen/dp15"
+                    android:layout_toRightOf="@id/layout_avatar"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/dp10"
                     />
-            </FrameLayout>
 
-    <TextView
-        android:layout_marginTop="@dimen/dp5"
-        android:layout_marginLeft="@dimen/dp5"
-        android:gravity="center"
-        android:layout_width="dp"
+                <ImageView
+                   android:layout_marginRight="@dimen/dp10"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:id="@+id/img_showcolor"
+                    android:layout_toLeftOf="@id/img_arrow_right"
+                    android:layout_width="@dimen/dp30"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/circle_cornor_yellow"
+
+                    />
+               <ImageView
+                    android:visibility="invisible"
+                    android:id="@+id/img_arrow_right"
+                    android:layout_marginRight="@dimen/dp15"
+                   android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/dp15"
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
+                    android:src="@drawable/innjoo_right_arrow"
+                    />
+                <ImageView
+                    android:visibility="gone"
+                    android:layout_marginRight="@dimen/dp10"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:id="@+id/img_delete_contact"
+                    android:layout_toLeftOf="@id/img_showcolor"
+                    android:layout_width="@dimen/dp33"
+                    android:layout_height="@dimen/dp33"
+                    android:src="@drawable/delete"
+                    />
+
+    <include layout="@layout/radio_group_small"
+        android:layout_marginTop="@dimen/dp7"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:singleLine="true"
-android:text="ffff"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dp5"
+        android:visibility="gone"
         />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
 
-</LinearLayout>
+    </android.support.constraint.ConstraintLayout>

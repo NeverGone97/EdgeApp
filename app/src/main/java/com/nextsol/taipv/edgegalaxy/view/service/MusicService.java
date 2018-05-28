@@ -152,7 +152,7 @@ public class MusicService extends Service implements
         Notification.Builder builder = new Notification.Builder(this);
 
         builder.setContentIntent(pendInt)
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(R.drawable.ic_launcher1)
                 .setTicker(songTitle)
                 .setOngoing(true)
                 .setContentTitle("AHIIH")

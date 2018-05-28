@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <android.support.v7.widget.RecyclerView
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp80"
         android:id="@+id/rcv_contact"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

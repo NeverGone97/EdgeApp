@@ -10,6 +10,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.gson.Gson;
 import com.nextsol.taipv.edgegalaxy.R;
+import com.nextsol.taipv.edgegalaxy.callback.Constants;
 import com.nextsol.taipv.edgegalaxy.callback.IPassPos;
 import com.nextsol.taipv.edgegalaxy.model.PeopleContact;
 import com.nextsol.taipv.edgegalaxy.utils.SharePre;
@@ -33,17 +35,21 @@ import com.nextsol.taipv.edgegalaxy.utils.SharePre;
 import java.util.List;
 
 public class PeopleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final String TAG = "PeopleAdapter";
+    int aaa;
     IPassPos iPassPos;
     private Context context;
     private List<PeopleContact> list;
     private int currentBackgroundColor = 0xffffffff;
     public static final int PICK_CONTACT = 2;
     SharePre sharePre;
+    private int number = 0;
     Gson gson;
-    public PeopleAdapter(Context context, List<PeopleContact> list,IPassPos iPassPos) {
+
+    public PeopleAdapter(Context context, List<PeopleContact> list, IPassPos iPassPos) {
         this.context = context;
         this.list = list;
-        this.iPassPos=iPassPos;
+        this.iPassPos = iPassPos;
     }
 
     @NonNull
@@ -123,39 +129,38 @@ public class PeopleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 iPassPos.iPassPoss(position);
             }
         });
-            itemHolder.imgDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        itemHolder.imgDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                    list.set(position,new PeopleContact(contact.getColor(),"","Add contacts"));
-                    sharePre=new SharePre(context);
-                    gson=new Gson();
-                    String type=gson.toJson(list);
-                    sharePre.saveListContact(type);
-                    itemHolder.tvCharFirstName.setVisibility(View.VISIBLE);
-                    itemHolder.tvCharFirstName.setText("+");
-                    itemHolder.imgColorName.setImageResource(contact.getColor());
-                    itemHolder.tvContactPeople.setText("Add contacts");
-                    itemHolder.imgDelete.setVisibility(View.GONE);
-                }
-            });
-        if (contact.getName() != null){
-
+                list.set(position, new PeopleContact(contact.getColor(), "", "Add contacts"));
+                sharePre = new SharePre(context);
+                gson = new Gson();
+                String type = gson.toJson(list);
+                sharePre.saveListContact(type);
+                itemHolder.tvCharFirstName.setVisibility(View.VISIBLE);
+                itemHolder.tvCharFirstName.setText("+");
+                itemHolder.imgColorName.setImageResource(contact.getColor());
+                itemHolder.tvContactPeople.setText("Add contacts");
+                itemHolder.imgDelete.setVisibility(View.GONE);
+            }
+        });
+        if (contact.getName() != null) {
+            aaa = position;
+            Log.d(TAG, "onBindViewHolder: " + aaa);
             itemHolder.tvContactPeople.setText(contact.getName());
             itemHolder.imgDelete.setVisibility(View.VISIBLE);
             itemHolder.tvCharFirstName.setVisibility(View.VISIBLE);
-            if (!contact.getName().equals("Add contacts")){
-                itemHolder.tvCharFirstName.setText(contact.getName().substring(0,1));
-            }else {
+            if (!contact.getName().equals("Add contacts")) {
+                itemHolder.tvCharFirstName.setText(contact.getName().substring(0, 1));
+            } else {
                 itemHolder.tvCharFirstName.setText("+");
                 itemHolder.imgDelete.setVisibility(View.GONE);
             }
-        }
-
-        else {
+        } else {
             itemHolder.tvContactPeople.setText("Add contacts");
         }
-        if(contact.getBitmap()!=null){
+        if (contact.getBitmap() != null) {
             itemHolder.imgColorName.setImageBitmap(contact.getBitmap());
             itemHolder.tvCharFirstName.setVisibility(View.GONE);
         }
@@ -165,6 +170,7 @@ public class PeopleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 //        this.iPassPos=iPassPos;
 //    }
     private void intentContact() {
+//        Log.d(TAG, "intentContact: "+aaa);
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         ((Activity) context).startActivityForResult(intent, PICK_CONTACT);
     }
@@ -209,9 +215,11 @@ public class PeopleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         }
     }
-public void setItemClick(IPassPos iPassPos){
-        this.iPassPos=iPassPos;
-}
+
+    public void setItemClick(IPassPos iPassPos) {
+        this.iPassPos = iPassPos;
+    }
+
     public void updateItem(int pos, PeopleContact contact) {
         list.set(pos, contact);
         notifyDataSetChanged();

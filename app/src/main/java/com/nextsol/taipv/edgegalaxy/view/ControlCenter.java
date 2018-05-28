@@ -99,21 +99,21 @@ public class ControlCenter extends Fragment implements View.OnClickListener {
         } catch (Settings.SettingNotFoundException e) {
             e.printStackTrace();
         }
-        final GLRippleView glRippleView = view.findViewById(R.id.glRippleView);
-        GLRippleView.Listener gl = new GLRippleView.Listener() {
-            @Override
-            public void onTouchEvent(@NotNull MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                    glRippleView.setRipplePoint(new Pair(AnimationUtil.INSTANCE.map(event.getX(), 0f, getWidth(), -1f, 1f),
-                            AnimationUtil.INSTANCE.map(event.getY(), 0f, getHeight(), -1f, 1f)));
-                    float var2 = AnimationUtil.INSTANCE.map(event.getX() / getWidth(), 0.0F, 1.0F, 0.0F, 0.02F);
-                    glRippleView.setRippleOffset(var2);
-                }
-            }
-        };
-        glRippleView.setListener(gl);
-        glRippleView.setFadeDuration(1000);
-        glRippleView.startCrossFadeAnimation();
+//        final GLRippleView glRippleView = view.findViewById(R.id.glRippleView);
+//        GLRippleView.Listener gl = new GLRippleView.Listener() {
+//            @Override
+//            public void onTouchEvent(@NotNull MotionEvent event) {
+//                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+//                    glRippleView.setRipplePoint(new Pair(AnimationUtil.INSTANCE.map(event.getX(), 0f, getWidth(), -1f, 1f),
+//                            AnimationUtil.INSTANCE.map(event.getY(), 0f, getHeight(), -1f, 1f)));
+//                    float var2 = AnimationUtil.INSTANCE.map(event.getX() / getWidth(), 0.0F, 1.0F, 0.0F, 0.02F);
+//                    glRippleView.setRippleOffset(var2);
+//                }
+//            }
+//        };
+//        glRippleView.setListener(gl);
+//        glRippleView.setFadeDuration(1000);
+//        glRippleView.startCrossFadeAnimation();
     }
 
     private void initEvent() throws Settings.SettingNotFoundException {

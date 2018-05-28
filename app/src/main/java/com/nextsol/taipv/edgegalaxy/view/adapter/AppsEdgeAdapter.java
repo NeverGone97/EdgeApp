@@ -16,10 +16,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.nextsol.taipv.edgegalaxy.R;
 import com.nextsol.taipv.edgegalaxy.callback.IPassPos;
 import com.nextsol.taipv.edgegalaxy.callback.ItemClickListener;
 import com.nextsol.taipv.edgegalaxy.model.AppsEdge;
+import com.nextsol.taipv.edgegalaxy.utils.SharePre;
 import com.nextsol.taipv.edgegalaxy.view.activity.ShowListApp;
 
 import java.util.List;
@@ -29,9 +31,10 @@ public class AppsEdgeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     ItemClickListener itemClickListener;
     Context context;
     String name;
+    Gson gson;
     List<AppsEdge> list;
     private TextView txt;
-
+    SharePre sharePre;
     public AppsEdgeAdapter(Context context, List<AppsEdge> list) {
         this.list = list;
         this.context = context;
@@ -143,5 +146,6 @@ public class AppsEdgeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void upDateIem(int pos, AppsEdge appsEdge) {
         list.set(pos, appsEdge);
         notifyDataSetChanged();
+
     }
 }

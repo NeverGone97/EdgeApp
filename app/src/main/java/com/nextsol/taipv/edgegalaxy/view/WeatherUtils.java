@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -42,7 +44,7 @@ public class WeatherUtils extends Fragment implements ICurrentWeatherView {
     private Dialog progressDialog;
     double lat, lon;
     RelativeLayout relativeLayout;
-    ImageView imgIcon;
+    ImageView imgIcon,imgPinwheel,imgUmbrella;
     TextView tvUV,tvWind,tvTempMin,tvTempMax,tvTempCur,tvCity,tvToday,tvDes;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,21 +61,21 @@ public class WeatherUtils extends Fragment implements ICurrentWeatherView {
         weatherPresenter.getDailyWeather(21.027764,105.834160, Constants.key);
         initView(view);
         event();
-        final GLRippleView glRippleView = view.findViewById(R.id.glRippleView);
-        GLRippleView.Listener gl = new GLRippleView.Listener() {
-            @Override
-            public void onTouchEvent(@NotNull MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                    glRippleView.setRipplePoint(new Pair(AnimationUtil.INSTANCE.map(event.getX(), 0f, getWidth(), -1f, 1f),
-                            AnimationUtil.INSTANCE.map(event.getY(), 0f, getHeight(), -1f, 1f)));
-                    float var2 = AnimationUtil.INSTANCE.map(event.getX() / getWidth(), 0.0F, 1.0F, 0.0F, 0.02F);
-                    glRippleView.setRippleOffset(var2);
-                }
-            }
-        };
-        glRippleView.setListener(gl);
-        glRippleView.setFadeDuration(1000);
-        glRippleView.startCrossFadeAnimation();
+//        final GLRippleView glRippleView = view.findViewById(R.id.glRippleView);
+//        GLRippleView.Listener gl = new GLRippleView.Listener() {
+//            @Override
+//            public void onTouchEvent(@NotNull MotionEvent event) {
+//                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+//                    glRippleView.setRipplePoint(new Pair(AnimationUtil.INSTANCE.map(event.getX(), 0f, getWidth(), -1f, 1f),
+//                            AnimationUtil.INSTANCE.map(event.getY(), 0f, getHeight(), -1f, 1f)));
+//                    float var2 = AnimationUtil.INSTANCE.map(event.getX() / getWidth(), 0.0F, 1.0F, 0.0F, 0.02F);
+//                    glRippleView.setRippleOffset(var2);
+//                }
+//            }
+//        };
+//        glRippleView.setListener(gl);
+//        glRippleView.setFadeDuration(1000);
+//        glRippleView.startCrossFadeAnimation();
     }
 
     private void event() {
@@ -84,6 +86,10 @@ public class WeatherUtils extends Fragment implements ICurrentWeatherView {
                 startActivity(intent);
             }
         });
+        Animation animationRotale = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_pinwheel);
+        imgPinwheel.setAnimation(animationRotale);
+        Animation animation=AnimationUtils.loadAnimation(getActivity(),R.anim.anim_zoom_out_in);
+        imgUmbrella.setAnimation(animation);
     }
 
     private void initView(View view) {
@@ -96,6 +102,8 @@ public class WeatherUtils extends Fragment implements ICurrentWeatherView {
         tvToday=view.findViewById(R.id.tv_time);
         tvDes=view.findViewById(R.id.tv_descrip);
         relativeLayout=view.findViewById(R.id.ln_layout);
+        imgPinwheel=view.findViewById(R.id.img_pinwheel);
+        imgUmbrella=view.findViewById(R.id.img_umbrella);
     }
 
     @Override

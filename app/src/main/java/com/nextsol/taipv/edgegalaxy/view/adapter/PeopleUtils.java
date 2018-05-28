@@ -1,15 +1,20 @@
 package com.nextsol.taipv.edgegalaxy.view.adapter;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,31 +31,38 @@ import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.gson.Gson;
 import com.nextsol.taipv.edgegalaxy.R;
+import com.nextsol.taipv.edgegalaxy.callback.Constants;
 import com.nextsol.taipv.edgegalaxy.callback.IPassPos;
+import com.nextsol.taipv.edgegalaxy.callback.IPassPoss;
 import com.nextsol.taipv.edgegalaxy.model.PeopleContact;
 import com.nextsol.taipv.edgegalaxy.utils.SharePre;
 
 import java.util.List;
 
 public class PeopleUtils extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    IPassPos iPassPos;
+    //    PassData PD;
+    public IPassPoss iPassPos;
     private Context context;
     private List<PeopleContact> list;
-    private int currentBackgroundColor = 0xffffffff;
     public static final int PICK_CONTACT = 2;
-    SharePre sharePre;
-    Gson gson;
-    public PeopleUtils(Context context, List<PeopleContact> list, IPassPos iPassPos) {
+
+    public PeopleUtils(Context context, List<PeopleContact> list, IPassPoss iPassPos) {
         this.context = context;
         this.list = list;
-        this.iPassPos=iPassPos;
+        this.iPassPos = iPassPos;
+    }
+
+    public PeopleUtils(Context context, List<PeopleContact> list) {
+        this.context = context;
+        this.list = list;
+//        this.PD = passData;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return new ItemHolder(inflater.inflate(R.layout.item_people_edge, parent, false));
+        return new ItemHolder(inflater.inflate(R.layout.item_people_utils, parent, false));
     }
 
     @Override
@@ -58,108 +70,66 @@ public class PeopleUtils extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         final ItemHolder itemHolder = (ItemHolder) holder;
         final PeopleContact contact = list.get(position);
         itemHolder.imgColorName.setImageResource(contact.getColor());
-        itemHolder.imgPickColor.setImageResource(contact.getColor());
-        itemHolder.imgPickColor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showColor(itemHolder);
-            }
-        });
-        itemHolder.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                // This will get the radiobutton that has changed in its check state
-                RadioButton checkedRadioButton = (RadioButton) group.findViewById(checkedId);
-                // This puts the value (true/false) into the variable
-                boolean isChecked = checkedRadioButton.isChecked();
-                // If the radiobutton that has changed in check state is now checked...
-                // Changes the textview's text to "Checked: example radiobutton text"
-                hideColor(itemHolder);
-                itemHolder.imgColorName.setImageDrawable(checkedRadioButton.getBackground());
-            }
-        });
-        itemHolder.radMutilColor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ColorPickerDialogBuilder
-                        .with(context)
-                        .setTitle("Choose color")
-                        .initialColor(currentBackgroundColor)
-                        .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
-                        .density(9)
-                        .alphaSliderOnly()
-                        .lightnessSliderOnly()
-                        .setOnColorSelectedListener(new OnColorSelectedListener() {
-                            @Override
-                            public void onColorSelected(int selectedColor) {
-                                Toast.makeText(context, "onColorSelected: 0x" + Integer.toHexString(selectedColor), Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .setPositiveButton("ok", new ColorPickerClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
-//                            changeBackgroundColor(selectedColor);
-                                hideColor(itemHolder);
-                                itemHolder.imgColorName.setColorFilter(selectedColor);
-                                itemHolder.imgPickColor.setColorFilter(selectedColor);
-                            }
-                        })
-                        .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                                hideColor(itemHolder);
-                            }
-                        })
-                        .build()
-                        .show();
-            }
-        });
-        itemHolder.tvContactPeople.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intentContact();
-                iPassPos.iPassPoss(position);
-            }
-        });
-            itemHolder.imgDelete.setOnClickListener(new View.OnClickListener() {
+        itemHolder.tvUtilsName.setText(contact.getName());
+//        itemHolder.tvCharFirstName.setText(contact.getName().substring(0,2));
+        if (contact.getName() != null) {
+            itemHolder.tvCharFirstName.setText(contact.getName().substring(0, 1));
+            itemHolder.imgColorName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    list.set(position,new PeopleContact(contact.getColor(),"","Add contacts"));
-                    sharePre=new SharePre(context);
-                    gson=new Gson();
-                    String type=gson.toJson(list);
-                    sharePre.saveListContact(type);
-                    itemHolder.tvCharFirstName.setVisibility(View.VISIBLE);
-                    itemHolder.tvCharFirstName.setText("+");
-                    itemHolder.imgColorName.setImageResource(contact.getColor());
-                    itemHolder.tvContactPeople.setText("Add contacts");
-                    itemHolder.imgDelete.setVisibility(View.GONE);
+                    itemHolder.imgPhone.setVisibility(View.VISIBLE);
+                    itemHolder.imgMessage.setVisibility(View.VISIBLE);
                 }
             });
-        if (contact.getName() != null){
 
-            itemHolder.tvContactPeople.setText(contact.getName());
-            itemHolder.imgDelete.setVisibility(View.VISIBLE);
-            itemHolder.tvCharFirstName.setVisibility(View.VISIBLE);
-            if (!contact.getName().equals("Add contacts")){
-                itemHolder.tvCharFirstName.setText(contact.getName().substring(0,1));
-            }else {
-                itemHolder.tvCharFirstName.setText("+");
-                itemHolder.imgDelete.setVisibility(View.GONE);
+        } else {
+            itemHolder.tvCharFirstName.setText("+");
+            itemHolder.imgColorName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    intentContact();
+                    iPassPos.iPassPoss(position);
+                    SharePre sharePre = new SharePre(context);
+                    sharePre.putInt(Constants.position, position);
+///                PD.passData(3);
+                    Log.d("Pass", "onClick: " + position);
+                    itemHolder.imgPhone.setVisibility(View.INVISIBLE);
+                    itemHolder.imgMessage.setVisibility(View.INVISIBLE);
+                }
+            });
+        }
+        itemHolder.imgPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_CALL);
+                intent.setData(Uri.parse("tel:"+contact.getPhone()));
+                if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+                context.startActivity(intent);
             }
-        }
-
-        else {
-            itemHolder.tvContactPeople.setText("Add contacts");
-        }
-        if(contact.getBitmap()!=null){
+        });
+        itemHolder.imgMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+                sendIntent.setData(Uri.parse("sms:"+contact.getPhone()));
+                context.startActivity(sendIntent);
+            }
+        });
+        if (contact.getBitmap() != null) {
             itemHolder.imgColorName.setImageBitmap(contact.getBitmap());
             itemHolder.tvCharFirstName.setVisibility(View.GONE);
         }
     }
+
 
     //    public void onClick(IPassPos iPassPos){
 //        this.iPassPos=iPassPos;
@@ -169,51 +139,38 @@ public class PeopleUtils extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ((Activity) context).startActivityForResult(intent, PICK_CONTACT);
     }
 
-    private void showColor(ItemHolder itemHolder) {
-        itemHolder.layoutRadio.setVisibility(View.VISIBLE);
-        itemHolder.imgPickColor.setVisibility(View.GONE);
-        itemHolder.tvContactPeople.setVisibility(View.GONE);
-    }
-
-    private void hideColor(ItemHolder itemHolder) {
-        itemHolder.layoutRadio.setVisibility(View.GONE);
-        itemHolder.imgPickColor.setVisibility(View.VISIBLE);
-        itemHolder.tvContactPeople.setVisibility(View.VISIBLE);
-    }
 
     @Override
     public int getItemCount() {
-        return 12;
+        return 6;
     }
 
     private class ItemHolder extends RecyclerView.ViewHolder {
-        private ImageView imgColorName, imgPickColor, imgDelete, imgExpand;
-        private TextView tvContactPeople, tvCharFirstName;
-        private RadioButton radMutilColor;
-        private LinearLayout layoutRadio;
-        private RadioGroup radioGroup;
-        private RadioButton checkedRadioButton;
+        private ImageView imgColorName, imgPhone, imgMessage;
+        private TextView tvCharFirstName, tvUtilsName;
 
         public ItemHolder(View itemHolder) {
             super(itemHolder);
+            tvUtilsName = itemHolder.findViewById(R.id.tv_utils_name);
             imgColorName = itemView.findViewById(R.id.img_color_name);
-            imgPickColor = itemView.findViewById(R.id.img_showcolor);
-            radMutilColor = itemView.findViewById(R.id.img_multi_color);
-            imgDelete = itemView.findViewById(R.id.img_delete_contact);
-            imgExpand = itemView.findViewById(R.id.img_arrow_right);
-            tvContactPeople = itemView.findViewById(R.id.tv_name_contact);
             tvCharFirstName = itemView.findViewById(R.id.tv_first_name_contact);
-            layoutRadio = itemHolder.findViewById(R.id.layout_radio);
-            radioGroup = itemHolder.findViewById(R.id.rad_group);
-            checkedRadioButton = radioGroup.findViewById(radioGroup.getCheckedRadioButtonId());
-
+            imgPhone = itemHolder.findViewById(R.id.call);
+            imgMessage = itemHolder.findViewById(R.id.message);
         }
     }
-public void setItemClick(IPassPos iPassPos){
-        this.iPassPos=iPassPos;
-}
+
+
+    public void setItemClick(IPassPoss iPassPos) {
+        this.iPassPos = iPassPos;
+    }
+
     public void updateItem(int pos, PeopleContact contact) {
         list.set(pos, contact);
         notifyDataSetChanged();
     }
+
+    public interface PassData {
+        void passData(int data);
+    }
 }
+

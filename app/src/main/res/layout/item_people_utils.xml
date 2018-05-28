@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dp15"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/layout_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp15">
+
+            <ImageView
+                android:id="@+id/img_color_name"
+                android:layout_width="@dimen/dp55"
+                android:layout_height="@dimen/dp55"
+                android:layout_marginLeft="@dimen/dp15"
+                android:background="@drawable/circle_cornor_yellow"
+                android:scaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/tv_first_name_contact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp32"
+                android:layout_marginTop="@dimen/dp2"
+                android:text="+"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_utils_name"
+            android:layout_width="@dimen/dp80"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp5"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="xxxx"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:visibility="invisible"
+        android:id="@+id/call"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_width="@dimen/dp65"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_height="@dimen/dp65"
+        android:src="@drawable/call"
+
+        />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/message"
+        android:layout_marginTop="@dimen/dp10"
+        android:visibility="invisible"
+        android:layout_width="@dimen/dp65"
+        android:layout_height="@dimen/dp65"
+        android:layout_marginLeft="@dimen/dp10"
+        android:padding="@dimen/dp5"
+        android:src="@drawable/message" />
+
+</LinearLayout>

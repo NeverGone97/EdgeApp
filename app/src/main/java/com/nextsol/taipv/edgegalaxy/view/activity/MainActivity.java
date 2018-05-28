@@ -3,11 +3,18 @@ package com.nextsol.taipv.edgegalaxy.view.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
@@ -19,17 +26,30 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.nextsol.taipv.edgegalaxy.R;
 import com.nextsol.taipv.edgegalaxy.callback.Constants;
+import com.nextsol.taipv.edgegalaxy.model.PeopleContact;
 import com.nextsol.taipv.edgegalaxy.utils.SharePre;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener{
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+    private static final String TAG = "MainActivity";
+    private static final int PERMISSION_REQUEST_CODE = 1;
+    private static final int PERMISSION_CODE = 2;
     private LinearLayout linearLayout, linearPermis, itemShare, item_power_saving,
             item_screen_edge, itemThemPaper, itemEdgeScreen, itemAdvance, itemIcon,
             itemPeopleEdge, itemAppEdge, itemMusic, itemRingtone;
+    List<PeopleContact> contacts;
+    int ccc;
     SharePre sharePre;
+    private int number = 0;
     TextView tv_state;
-    private TextView tvPermission,numberContact;
+    private TextView tvPermission, numberContact;
     private SwitchCompat switchCompat;
     ImageView banner;
     private static final int CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084;
@@ -38,14 +58,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tv_state=findViewById(R.id.tv_state);
+        tv_state = findViewById(R.id.tv_state);
+        sharePre = new SharePre(MainActivity.this);
+        getContactList();
 
-        sharePre=new SharePre(MainActivity.this);
-        if (sharePre.getBoolean(Constants.checkSwich)){
+        if (sharePre.getBoolean(Constants.checkSwich)) {
             initializeView();
             tv_state.setText("On");
 
-        }else {
+        } else {
             tv_state.setText("Off");
 
         }
@@ -82,10 +103,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         itemPeopleEdge.setOnClickListener(this);
         itemAppEdge.setOnClickListener(this);
         itemMusic.setOnClickListener(this);
-        itemRingtone.setOnClickListener(this);
+        itemRingtone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= 23) {
+                        if (Settings.System.canWrite(MainActivity.this)) {
+//                            setRingtone();
+
+                            if (checkPermission()) {
+                                Intent intent = new Intent(MainActivity.this, NavigationHome.class);
+                                intent.putExtra(Constants.putFrag, 3);
+                                startActivity(intent);
+                            } else {
+                                requestPermission();
+                            }
+
+                            } else {
+                            Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS)
+                                    .setData(Uri.parse("package:" + getPackageName()))
+                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
+
+
+                        Log.e("value", "Permission already Granted, Now you can save image.");
+
+                } else {
+//                    setRingtone();
+                    Log.e("value", "Not required for requesting runtime permission");
+                }
+
+            }
+        });
 //        switchCompat.setOnCheckedChangeListener(this);
-        Log.d("xxx", "initEvents: "+sharePre.getBoolean(Constants.checkSwich));
-        switchCompat.setChecked( sharePre.getBoolean(Constants.checkSwich));
+        Log.d("xxx", "initEvents: " + sharePre.getBoolean(Constants.checkSwich));
+        switchCompat.setChecked(sharePre.getBoolean(Constants.checkSwich));
 
 //        if(sharePre.getBoolean(Constants.checkSwich)==true){
 //            initializeView();
@@ -97,8 +149,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                sharePre.putBoolean(Constants.checkSwich,isChecked);
-                if (isChecked){
+                sharePre.putBoolean(Constants.checkSwich, isChecked);
+                if (isChecked) {
+                    checkPermissionForReadExtertalStorage();
+                    try {
+                        requestPermissionForReadExtertalStorage();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(getApplicationContext())) {
 
 
@@ -112,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         tv_state.setText("On");
                     }
 
-                }else {
+                } else {
                     tv_state.setText("Off");
                 }
             }
@@ -120,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
-        banner=findViewById(R.id.banner);
+        banner = findViewById(R.id.banner);
         linearLayout = findViewById(R.id.hide_permiss);
         linearLayout.setVisibility(View.GONE);
         tvPermission = findViewById(R.id.tv_permission);
@@ -135,9 +193,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         itemPeopleEdge = findViewById(R.id.item_people_edge);
         itemAppEdge = findViewById(R.id.item_edge_app);
         itemMusic = findViewById(R.id.item_music);
-        itemRingtone=findViewById(R.id.item_ringtone);
-        numberContact=findViewById(R.id.numberContact);
-        switchCompat=findViewById(R.id.swichButton);
+        itemRingtone = findViewById(R.id.item_ringtone);
+        numberContact = findViewById(R.id.numberContact);
+        switchCompat = findViewById(R.id.swichButton);
+        if (contacts!=null) {
+            numberContact.setText(String.valueOf(number) + " People");
+        } else {
+            numberContact.setText("0 People");
+        }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        getContactList();
+        numberContact.setText(String.valueOf(number) + " People");
+    }
+
+    private void getContactList() {
+        String listContact = sharePre.getListContact();
+        if (!listContact.equals("NullContact")) {
+
+            Type type = new TypeToken<List<PeopleContact>>() {
+            }.getType();
+            contacts = new Gson().fromJson(listContact, type);
+            number = 0;
+            for (int i = 0; i < 12; i++) {
+                if (contacts.get(i).getName() != null && !contacts.get(i).getName().equals("Add contacts")) {
+                    Log.d(TAG, "getContactList: " + contacts.get(i).getName() + " : " + i);
+                    number++;
+                }
+            }
+//        Log.d(TAG, "getContactList: "+contacts.size());
+            if (contacts == null) {
+                contacts = new ArrayList<>();
+            }
+        }else {
+            return;
+        }
     }
 
     /**
@@ -147,16 +240,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.notify_me).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkPermissionForReadExtertalStorage();
-                try {
-                    requestPermissionForReadExtertalStorage();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                startService(new Intent(MainActivity.this, FloatingViewService.class));
+                Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.icon_appsuggest_2);
+                intent(icon);
                 finish();
             }
         });
+    }
+
+    private void intent(Bitmap resoureImage) {
+        Intent intent = new Intent(MainActivity.this, FloatingViewService.class);
+        intent.putExtra(Constants.putImage, resoureImage);
+        startService(intent);
+//        finish();
     }
 
     @Override
@@ -208,11 +303,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intentActivity(AppsEdge.class);
                 break;
             case R.id.item_music:
-                intentActivity(Music.class);
+                if (Build.VERSION.SDK_INT>=23){
+                    if(checkPermission()){
+                        intentActivity(Music.class);
+                    }else {
+                        requestPermissionMusic();
+                    }
+                }else {
+                    intentActivity(Music.class);
+                }
                 break;
             case R.id.item_ringtone:
-                Intent intent=new Intent(MainActivity.this,NavigationHome.class);
-                intent.putExtra(Constants.putFrag,3);
+                Intent intent = new Intent(MainActivity.this, NavigationHome.class);
+                intent.putExtra(Constants.putFrag, 3);
                 startActivity(intent);
                 break;
             case R.id.banner:
@@ -245,10 +348,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked){
+        if (isChecked) {
             intentActivity(UtilsWidget.class);
         }
     }
+
     public boolean checkPermissionForReadExtertalStorage() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             int result = getApplicationContext().checkSelfPermission(Manifest.permission.READ_CALENDAR);
@@ -261,11 +365,90 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void requestPermissionForReadExtertalStorage() throws Exception {
         try {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_CALENDAR,Manifest.permission.WRITE_CALENDAR,Manifest.permission.CAMERA,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR, Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE},
                     1);
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
+        }
+    }
+
+    public static Bitmap drawable2Bitmap(final Drawable drawable) {
+        if (drawable instanceof BitmapDrawable) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            if (bitmapDrawable.getBitmap() != null) {
+                return bitmapDrawable.getBitmap();
+            }
+        }
+        Bitmap bitmap;
+        if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
+            bitmap = Bitmap.createBitmap(1, 1,
+                    drawable.getOpacity() != PixelFormat.OPAQUE
+                            ? Bitmap.Config.ARGB_8888
+                            : Bitmap.Config.RGB_565);
+        } else {
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                    drawable.getIntrinsicHeight(),
+                    drawable.getOpacity() != PixelFormat.OPAQUE
+                            ? Bitmap.Config.ARGB_8888
+                            : Bitmap.Config.RGB_565);
+        }
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
+    }
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (result == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void requestPermission() {
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            Toast.makeText(MainActivity.this, "Write External Storage permission allows us to do store images. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
+        } else {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+        }
+    }
+    private void requestPermissionMusic() {
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            Toast.makeText(MainActivity.this, "Write External Storage permission allows us to do store images. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
+        } else {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_CODE);
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.e("value", "Permission Granted, Now you can save image .");
+                    if (Build.VERSION.SDK_INT >= 23) {
+                        if (Settings.System.canWrite(MainActivity.this)) {
+//                            setRingtone();
+                            Intent intent = new Intent(MainActivity.this, NavigationHome.class);
+                            intent.putExtra(Constants.putFrag, 3);
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS)
+                                    .setData(Uri.parse("package:" + getPackageName()))
+                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
+                    }
+                } else {
+                    Log.e("value", "Permission Denied, You cannot save image.");
+                }
+                break;
+            case PERMISSION_CODE:
+                intentActivity(Music.class);
+                break;
         }
     }
 }

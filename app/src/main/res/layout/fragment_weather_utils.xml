@@ -8,12 +8,12 @@
     android:id="@+id/ln_layout"
 
     >
-    <r21nomi.com.glrippleview.GLRippleView
-        android:layout_marginRight="@dimen/dp200"
-        android:id="@+id/glRippleView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:backgroundImage="@drawable/gift_background" />
+    <!--<r21nomi.com.glrippleview.GLRippleView-->
+        <!--android:layout_marginRight="@dimen/dp200"-->
+        <!--android:id="@+id/glRippleView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--app:backgroundImage="@drawable/gift_background" />-->
     <LinearLayout
         android:orientation="vertical"
         android:background="@color/red"
@@ -154,11 +154,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:id="@+id/img_umbrella"
                     android:layout_width="@dimen/dp50"
                     android:layout_height="@dimen/dp50"
                     android:src="@drawable/ic_lifeindex_ultravioletrays"
                     />
                 <ImageView
+                    android:id="@+id/img_pinwheel"
                     android:layout_marginLeft="@dimen/dp55"
                     android:layout_width="@dimen/dp50"
                     android:layout_height="@dimen/dp50"

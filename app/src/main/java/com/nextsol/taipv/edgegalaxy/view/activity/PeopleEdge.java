@@ -33,6 +33,7 @@ import java.util.List;
 import static com.nextsol.taipv.edgegalaxy.view.adapter.PeopleAdapter.PICK_CONTACT;
 
 public class PeopleEdge extends AppCompatActivity implements IPassPos {
+    RecyclerView recyclerView;
     private static final String TAG = "xxx";
     int pos = -1;
     private Uri uriContact;
@@ -43,7 +44,6 @@ public class PeopleEdge extends AppCompatActivity implements IPassPos {
     String contactNumber = null;
     SharePre sharePre;
     PeopleAdapter adapter;
-    RecyclerView recyclerView;
     Integer[] listColor = {R.drawable.circle_cornor_oran, R.drawable.circle_cornor_yellow, R.drawable.circle_cornor_green,
             R.drawable.circle_cornor_blue2, R.drawable.circle_cornor_blue, R.drawable.circle_cornor_red,
             R.drawable.circle_cornor_oran, R.drawable.circle_cornor_yellow, R.drawable.circle_cornor_green,
@@ -71,7 +71,9 @@ public class PeopleEdge extends AppCompatActivity implements IPassPos {
     private void getContactList() {
         String listContact=sharePre.getListContact();
         Type type=new TypeToken<List<PeopleContact>>(){}.getType();
-        contacts=gson.fromJson(listContact,type);
+        if (!listContact.equals("NullContact")){
+            contacts=gson.fromJson(listContact,type);
+        }
         if(contacts==null){
             contacts=new ArrayList<>();
 
@@ -116,6 +118,7 @@ public class PeopleEdge extends AppCompatActivity implements IPassPos {
         switch (requestCode) {
             case (PICK_CONTACT):
                 uriContact = data.getData();
+
                 retrieveContactName();
                 retrieveContactNumber();
                 retrieveContactPhoto();

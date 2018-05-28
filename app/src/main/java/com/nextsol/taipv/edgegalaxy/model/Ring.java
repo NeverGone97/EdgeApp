@@ -5,22 +5,25 @@ public class Ring {
     private int ring;
     private String title;
     private boolean playing;
-
-    public Ring(boolean isPlaying) {
-        this.playing = isPlaying;
-    }
-
-    public Ring(int icon, int ring, String title) {
+    private String nameSong;
+    public Ring(int icon, int ring, String title, boolean playing, String nameSong) {
         this.icon = icon;
         this.ring = ring;
         this.title = title;
+        this.playing = playing;
+        this.nameSong = nameSong;
     }
 
-    public Ring(int icon, int ring, String title, boolean isPlaying) {
-        this.icon = icon;
-        this.ring = ring;
-        this.title = title;
-        this.playing = isPlaying;
+    public boolean isPlaying() {
+        return playing;
+    }
+
+    public String getNameSong() {
+        return nameSong;
+    }
+
+    public void setNameSong(String nameSong) {
+        this.nameSong = nameSong;
     }
 
     public boolean getPlaying() {

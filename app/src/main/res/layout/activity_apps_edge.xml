@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp20"
         android:layout_marginBottom="@dimen/dp10"
-        android:text="Access your most frequently used apps quickly vie the Edge screen"
+        android:text="Access your most frequently used apps quickly via the Edge screen"
         />
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"

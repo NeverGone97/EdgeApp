@@ -41,7 +41,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/dp20"
-                        android:text="Galaxy S9 S8 Note8 S7"
+                        android:text="Galaxy S9 S8 ListApp8 S7"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 

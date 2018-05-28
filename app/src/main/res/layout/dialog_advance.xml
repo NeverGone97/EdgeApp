@@ -44,7 +44,7 @@
             android:layout_marginLeft="34.0dip"
             android:layout_marginRight="24.0dip"
             android:lineSpacingExtra="5.0dip"
-            android:text="Dear friends,this free app can only use 30 Minutes,pelase search and buy People Edge in google play,thank you!"
+            android:text="Dear friends,this free app can only use 30 Minutes,please search and buy People Edge in google play,thank you!"
             android:textColor="#ff616161"
             android:textSize="16.0dip" />
 

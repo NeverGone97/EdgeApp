@@ -15,6 +15,7 @@ public class SharePre {
     // Sharedpref file name
     private static final String PREF_NAME = "pref";
     private static final String LISTCONTACT = "listContact";
+    private static final String LISTAPPS = "listApps";
 
     public SharePre(Context context) {
         this._context = context;
@@ -38,13 +39,31 @@ public class SharePre {
     public boolean getBoolean(String key) {
         return pref.getBoolean(key, false);
     }
-
+    public void saveListApps(String scoreString) {
+        editor.putString(LISTAPPS, scoreString);
+        editor.commit();
+    }
     public void saveListContact(String scoreString) {
         editor.putString(LISTCONTACT, scoreString);
         editor.commit();
     }
-
+    public void removeListContact(){
+        editor.remove(LISTCONTACT);
+        editor.apply();
+        editor.commit();
+    }
     public String getListContact() {
-        return pref.getString(LISTCONTACT, "");
+        return pref.getString(LISTCONTACT, "NullContact");
+    }
+    public String getListApps() {
+        return pref.getString(LISTAPPS, "NullApps");
+    }
+
+    public void putInt(String key, int value) {
+        editor.putInt(key,value);
+        editor.commit();
+    }
+    public int getInt(String key){
+        return pref.getInt(key,-1);
     }
 }
